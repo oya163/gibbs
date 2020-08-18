@@ -15,6 +15,7 @@ import grapheme
 import pickle
 
 import argparse
+from mpmath import gamma
 
 np.random.seed(163)
 
@@ -29,11 +30,11 @@ def parse_args():
     parser.add_argument("-d", "--data_points", dest="data_points", type=int,
                         default=-1, metavar="INT", help="Total data points [default:-1]")
     parser.add_argument("-i", "--iteration", dest="iteration", type=int,
-                        default=2, metavar="INT", help="Iterations [default:50]")
+                        default=5, metavar="INT", help="Iterations [default:50]")
     parser.add_argument("-a", "--alpha", dest="alpha", type=float,
                         default=0.9, metavar="FLOAT", help="Alpha")
-    parser.add_argument("-p", "--prior", dest="prior", type=str, default='mle',
-                        choices=['mle', 'ngi'], metavar="STR", help="Prior Selection [default:ngi]")
+    parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
+                        choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
     parser.add_argument('-t', "--testing", default=False, action="store_true", help="For testing purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input testing word")
     args = parser.parse_args()
@@ -41,17 +42,17 @@ def parse_args():
 
 
 class MixtureModel:
-    def __init__(self, K, A, total_iteration):
+    def __init__(self, K, A, total_iteration, method):
         # Number of cluster
         self.K = K
         self.A = A
         self.total_iteration = total_iteration
-
-        self.alpha_0 = 2
-        self.beta_0 = 7
+        self.method = method
+        self.alpha_0 = 1.0
+        self.beta_0 = 2.0
 
     # Read file
-    def read_corpus(self, file_path='national_small.txt'):
+    def read_corpus(self, file_path='national.txt'):
         with open(file_path) as f:
             corpus = f.read().split()
             corpus_len = len(corpus)
@@ -91,7 +92,8 @@ class MixtureModel:
         words = []
 
         for each in sent:
-            splits = self.geometric_split(each, prob=0.5)
+            # splits = self.geometric_split(each, prob=0.5)
+            splits = self.split_over_length(each)
             words.extend(splits)
             for each_split in splits:
                 if each_split[0]:
@@ -126,6 +128,15 @@ class MixtureModel:
                     new_cluster[orig_data[idx]] = [d]
         return new_cluster
 
+    def beta_geometric_posterior(self, x_len, n, sum_of_grapheme):
+        alpha_ = self.alpha_0 + n
+        beta_ = self.beta_0 + sum_of_grapheme - n
+        # numerator = beta(alpha_ + 1, beta_ + x_len - 1)
+        # denom = beta(alpha_, beta_)
+        beta = lambda a, b: (gamma(a) * gamma(b)) / gamma(a + b)
+        p = beta(alpha_ + 1, beta_ + x_len - 1) / beta(alpha_, beta_)
+        return float(p)
+
     def fit(self, data, init_data):
         N = len(init_data)
         for itr in range(self.total_iteration):
@@ -136,18 +147,22 @@ class MixtureModel:
                 x_len = grapheme.length(x)
 
                 # Parameters
-                P = []
                 cluster_prob = []
                 final_prob = []
 
-                # Estimate Gaussian parameters of each cluster
+                # Estimate parameters of each cluster
                 for k, v in sorted(cluster.items()):
                     n = len(v)
+                    curr_prob = 0.0
+                    sum_of_grapheme = sum([grapheme.length(d) for d in v])
+                    if self.method == 'mle':
+                        # estimate theta using MLE
+                        theta_es = n / sum_of_grapheme
+                        curr_prob = self.g0(theta_es, x_len)
+                    elif self.method == 'collapsed':
+                        curr_prob = self.beta_geometric_posterior(x_len, n, sum_of_grapheme)
 
-                    # estimate theta using MLE
-                    theta_es = n / sum([grapheme.length(d) for d in v])
-
-                    cluster_prob.append(self.g0(theta_es, x_len))
+                    cluster_prob.append(curr_prob)
 
                     # Count of data points in each cluster
                     likelihood = n / (N + self.A - 1)
@@ -229,9 +244,10 @@ def main():
     A = args.alpha
     testing = args.testing
     word = args.word
+    method = args.method
 
     # define model
-    model = MixtureModel(K, A, total_iteration)
+    model = MixtureModel(K, A, total_iteration, method)
 
     if not testing:
         # generate data
