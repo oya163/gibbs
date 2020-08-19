@@ -52,7 +52,7 @@ class MixtureModel:
         self.beta_0 = 2.0
 
     # Read file
-    def read_corpus(self, file_path='national.txt'):
+    def read_corpus(self, file_path='national_small.txt'):
         with open(file_path) as f:
             corpus = f.read().split()
             corpus_len = len(corpus)
@@ -80,7 +80,8 @@ class MixtureModel:
         return split_list
 
     def generate_data(self):
-        sent = "नेपाली सिनेमा र एकाध नाटकमा समेत विगत तीस वर्षदेखि क्रियाशील कलाकार राजेश हमाल सिनेमा क्षेत्रका महानायक हुन् वा होइनन् भन्नेबारे त्यस क्षेत्रमा रुचि राख्नेहरूबीच तात्तातो बहस चल्यो । "
+        sent = "नेपाली सिनेमा र एकाध नाटकमा समेत विगत तीस वर्षदेखि क्रियाशील कलाकार राजेश हमाल सिनेमा क्षेत्रका " \
+               "महानायक हुन् वा होइनन् भन्नेबारे त्यस क्षेत्रमा रुचि राख्नेहरूबीच तात्तातो बहस चल्यो । "
         sent = sent.split()
 
         sent = self.read_corpus()
@@ -131,8 +132,6 @@ class MixtureModel:
     def beta_geometric_posterior(self, x_len, n, sum_of_grapheme):
         alpha_ = self.alpha_0 + n
         beta_ = self.beta_0 + sum_of_grapheme - n
-        # numerator = beta(alpha_ + 1, beta_ + x_len - 1)
-        # denom = beta(alpha_, beta_)
         beta = lambda a, b: (gamma(a) * gamma(b)) / gamma(a + b)
         p = beta(alpha_ + 1, beta_ + x_len - 1) / beta(alpha_, beta_)
         return float(p)
@@ -145,6 +144,12 @@ class MixtureModel:
                 # Remove data point
                 cluster = self.remove_current_data(i, data, init_data)
                 x_len = grapheme.length(x)
+
+                # Compress the cluster
+                # to prevent from ever increasing cluster id
+                keys = sorted(cluster.keys())
+                for j in range(0, len(keys)):
+                    cluster[j] = cluster.pop(keys[j])
 
                 # Parameters
                 cluster_prob = []
@@ -166,7 +171,6 @@ class MixtureModel:
 
                     # Count of data points in each cluster
                     likelihood = n / (N + self.A - 1)
-                    # final_prob.append(likelihood * cluster_prob[-1])
                     final_prob.append(likelihood * cluster_prob[-1])
 
                 # Probability of joining new cluster

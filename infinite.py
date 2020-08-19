@@ -30,7 +30,7 @@ def parse_args():
     parser.add_argument("-t", "--total_points", dest="max_range", type=int,
                         default=500, metavar="INT", help="Total Points [default:500]")
     parser.add_argument("-p", "--prior", dest="prior", type=str, default='mle',
-                        choices=['mle', 'ngi'], metavar="STR", help="Prior Selection [default:ngi]")
+                        choices=['mle', 'ngi'], metavar="STR", help="Prior Selection [default:mle]")
     args = parser.parse_args()
     return args
 
@@ -129,6 +129,13 @@ class MixtureModel:
             for i, x in enumerate(data):
                 # Remove data point
                 cluster = self.remove_current_data(i, data, init_data)
+
+                # Compress the cluster
+                # to prevent from ever increasing cluster id
+                keys = sorted(cluster.keys())
+                for j in range(0, len(keys)):
+                    cluster[j] = cluster.pop(keys[j])
+                # print("Dictionary keys:", cluster.keys())
 
                 # Parameters
                 mu = []
