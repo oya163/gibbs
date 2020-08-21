@@ -9,11 +9,12 @@
     Still under construction
 """
 
+import regex as re
 import numpy as np
 import matplotlib.pyplot as plt
 import grapheme
 import pickle
-
+import math
 import argparse
 from mpmath import gamma
 
@@ -35,26 +36,47 @@ def parse_args():
                         default=0.9, metavar="FLOAT", help="Alpha")
     parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
                         choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
-    parser.add_argument('-t', "--testing", default=False, action="store_true", help="For testing purpose only")
+    parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
+                        metavar="STR", help="Input Filename [default:national_very_small.txt]")
+    parser.add_argument("-f", "--filename", dest="filename", type=str, default='segmented',
+                        metavar="STR", help="File name [default:segmented]")
+    parser.add_argument("-l", "--corpus_length", dest="corpus_length", type=int, default=5000,
+                        metavar="INT", help="Corpus length default:5000")
+    parser.add_argument('-t', "--testing", default=True, action="store_true", help="For testing purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input testing word")
     args = parser.parse_args()
     return args
 
+def filter(text):
+  text = re.sub(r'\([^)]*\)', r'', text)
+  text = re.sub(r'\[[^\]]*\]', r'', text)
+  text = re.sub(r'<[^>]*>', r'', text)
+  text = re.sub(r'[!।,\']', r'', text)
+  text = re.sub(r'[०१२३४५६७८९]', r'', text)
+  text = text.replace(u'\ufeff','')
+  text = text.replace(u'\xa0', u' ')
+  text = re.sub(r'( )+', r' ', text)
+  return text
+
 
 class MixtureModel:
-    def __init__(self, K, A, total_iteration, method):
+    def __init__(self, K, A, N, total_iteration, method, filename, input_filename):
         # Number of cluster
         self.K = K
         self.A = A
+        self.N = N
         self.total_iteration = total_iteration
         self.method = method
         self.alpha_0 = 1.0
         self.beta_0 = 2.0
+        self.filename = filename
+        self.input_filename = input_filename
 
     # Read file
-    def read_corpus(self, file_path='national_small.txt'):
-        with open(file_path) as f:
-            corpus = f.read().split()
+    def read_corpus(self):
+        with open(self.input_filename) as f:
+            text = filter(f.read())
+            corpus = text.split()[:self.N]
             corpus_len = len(corpus)
             print("Corpus length", corpus_len)
         return corpus
@@ -80,9 +102,9 @@ class MixtureModel:
         return split_list
 
     def generate_data(self):
-        sent = "नेपाली सिनेमा र एकाध नाटकमा समेत विगत तीस वर्षदेखि क्रियाशील कलाकार राजेश हमाल सिनेमा क्षेत्रका " \
-               "महानायक हुन् वा होइनन् भन्नेबारे त्यस क्षेत्रमा रुचि राख्नेहरूबीच तात्तातो बहस चल्यो । "
-        sent = sent.split()
+        # sent = "नेपाली सिनेमा र एकाध नाटकमा समेत विगत तीस वर्षदेखि क्रियाशील कलाकार राजेश हमाल सिनेमा क्षेत्रका " \
+        #        "महानायक हुन् वा होइनन् भन्नेबारे त्यस क्षेत्रमा रुचि राख्नेहरूबीच तात्तातो बहस चल्यो । "
+        # sent = sent.split()
 
         sent = self.read_corpus()
 
@@ -136,53 +158,79 @@ class MixtureModel:
         p = beta(alpha_ + 1, beta_ + x_len - 1) / beta(alpha_, beta_)
         return float(p)
 
-    def fit(self, data, init_data):
+    def _fit(self, data, init_data):
         N = len(init_data)
+        performance = []
+        for i, x in enumerate(data):
+            # Remove data point
+            cluster = self.remove_current_data(i, data, init_data)
+            x_len = grapheme.length(x)
+
+            # Compress the cluster
+            # to prevent from ever increasing cluster id
+            keys = sorted(cluster.keys())
+            for j in range(0, len(keys)):
+                cluster[j] = cluster.pop(keys[j])
+
+            # Parameters
+            cluster_prob = []
+            final_prob = []
+
+            # Estimate parameters of each cluster
+            for k, v in sorted(cluster.items()):
+                n = len(v)
+                curr_prob = 0.0
+                sum_of_grapheme = sum([grapheme.length(d) for d in v])
+                if self.method == 'mle':
+                    # estimate theta using MLE
+                    theta_es = n / sum_of_grapheme
+                    curr_prob = self.g0(theta_es, x_len)
+                elif self.method == 'collapsed':
+                    curr_prob = self.beta_geometric_posterior(x_len, n, sum_of_grapheme)
+
+                cluster_prob.append(curr_prob)
+
+                # Count of data points in each cluster
+                likelihood = n / (N + self.A - 1)
+                final_prob.append(likelihood * cluster_prob[-1])
+
+            # Probability of joining new cluster
+            final_prob.append((self.A / (N + self.A - 1)) * self.g0(0.5, x_len))
+
+            # Normalize the probability
+            norm_prob = final_prob / np.sum(final_prob)
+
+            # Update cluster assignment based on the calculated probability
+            init_data[i] = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
+
+            # Computer log-likelihood
+            performance.append(np.log(np.sum(final_prob)))
+
+        return init_data, performance
+
+    def fit(self, data, init_data, data_list):
+        stem_list, suffix_list = data_list
+        total_performance = [[] for x in range(2)]
+        best_performance = -math.inf
         for itr in range(self.total_iteration):
+            print("Training iteration: {}".format(itr))
+            st_cluster, st_performance = self._fit(data[0], init_data[0])
+            sf_cluster, sf_performance = self._fit(data[1], init_data[1])
 
-            for i, x in enumerate(data):
-                # Remove data point
-                cluster = self.remove_current_data(i, data, init_data)
-                x_len = grapheme.length(x)
+            print("Cluster size : {}".format(set(st_cluster)))
 
-                # Compress the cluster
-                # to prevent from ever increasing cluster id
-                keys = sorted(cluster.keys())
-                for j in range(0, len(keys)):
-                    cluster[j] = cluster.pop(keys[j])
+            curr_performance = (np.sum(st_performance) + np.sum(sf_performance)) / 2
+            total_performance[0].append(np.sum(st_performance))
+            total_performance[1].append(np.sum(sf_performance))
 
-                # Parameters
-                cluster_prob = []
-                final_prob = []
+            if curr_performance > best_performance:
+                print("Saving best model !!!")
+                best_performance = curr_performance
+                save_filename = self.filename + '.pkl'
+                with open(save_filename, 'wb') as f:
+                    pickle.dump([st_cluster, sf_cluster, stem_list, suffix_list], f)
 
-                # Estimate parameters of each cluster
-                for k, v in sorted(cluster.items()):
-                    n = len(v)
-                    curr_prob = 0.0
-                    sum_of_grapheme = sum([grapheme.length(d) for d in v])
-                    if self.method == 'mle':
-                        # estimate theta using MLE
-                        theta_es = n / sum_of_grapheme
-                        curr_prob = self.g0(theta_es, x_len)
-                    elif self.method == 'collapsed':
-                        curr_prob = self.beta_geometric_posterior(x_len, n, sum_of_grapheme)
-
-                    cluster_prob.append(curr_prob)
-
-                    # Count of data points in each cluster
-                    likelihood = n / (N + self.A - 1)
-                    final_prob.append(likelihood * cluster_prob[-1])
-
-                # Probability of joining new cluster
-                final_prob.append((self.A / (N + self.A - 1)) * self.g0(0.5, x_len))
-
-                # Normalize the probability
-                norm_prob = final_prob / np.sum(final_prob)
-
-                # Update cluster assignment based on the calculated probability
-                init_data[i] = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
-
-        return init_data
+        return total_performance
 
     def clusterize(self, cluster, morpheme_list):
         final_cluster = {}
@@ -209,7 +257,7 @@ class MixtureModel:
         plt.xticks([i for i in range(self.total_iteration)])
         plt.show()
 
-    def get_posterior(self, cluster, morpheme_assignment, initial_list, morpheme):
+    def get_posterior_by_index(self, cluster, morpheme_assignment, initial_list, morpheme):
         index = initial_list.index(morpheme) if morpheme in initial_list else -1
         if index >= 0:
             cluster_id = morpheme_assignment[index]
@@ -217,6 +265,24 @@ class MixtureModel:
             return n_si / (len(morpheme_assignment) + self.A)
         else:
             return self.A * self.g0(0.5, grapheme.length(morpheme)) / (len(morpheme_assignment) + self.A)
+
+    def get_posterior_by_sampling(self, cluster, morpheme_assignment, initial_list, morpheme):
+        initial_list = np.array(initial_list)
+        indices = np.where(initial_list == morpheme)[0].tolist()
+        L = len(morpheme_assignment)
+        prob = []
+        if indices:
+            for index in indices:
+                cluster_id = morpheme_assignment[index]
+                n_si = len(cluster[cluster_id])
+                prob.append(n_si / (L + self.A))
+
+            # Sampling from the assigned clusters
+            norm_prob = prob / np.sum(prob)
+            prob_index = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
+            return prob[prob_index]
+        else:
+            return self.A * self.g0(0.5, grapheme.length(morpheme)) / (L + self.A)
 
     def inference(self, st_cluster, sf_cluster, stem_list, suffix_list, given_word):
         # split_list = self.geometric_split(given_word, 0.1)
@@ -226,8 +292,8 @@ class MixtureModel:
 
         final_prob = []
         for stem, suffix in split_list:
-            p_stem = self.get_posterior(stem_cluster, st_cluster, stem_list, stem)
-            p_suffix = self.get_posterior(suffix_cluster, sf_cluster, suffix_list, suffix)
+            p_stem = self.get_posterior_by_sampling(stem_cluster, st_cluster, stem_list, stem)
+            p_suffix = self.get_posterior_by_sampling(suffix_cluster, sf_cluster, suffix_list, suffix)
             final_prob.append(p_stem * p_suffix)
 
         print("All probable splits")
@@ -249,9 +315,11 @@ def main():
     testing = args.testing
     word = args.word
     method = args.method
+    filename = args.filename
+    input_filename = args.input_filename
 
     # define model
-    model = MixtureModel(K, A, total_iteration, method)
+    model = MixtureModel(K, A, N, total_iteration, method, filename, input_filename)
 
     if not testing:
         # generate data
@@ -262,22 +330,16 @@ def main():
         init_data_suffix = model.initialize_cluster(suffix_list)
 
         # print(itr)
-        st_cluster = model.fit(stem_list, init_data_stem)
-        sf_cluster = model.fit(suffix_list, init_data_suffix)
+        total_performance = model.fit((stem_list, suffix_list),
+                  (init_data_stem, init_data_suffix),
+                  (stem_list, suffix_list))
 
-        print("Stem cluster")
-        stem_cluster = model.clusterize(st_cluster, stem_list)
-
-        print("Suffix cluster")
-        suffix_cluster = model.clusterize(sf_cluster, suffix_list)
-
-        # Save st_cluster, sf_cluster, stem_list, suffix_list
-        # Saving the objects:
-        with open('segmented.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
-            pickle.dump([st_cluster, sf_cluster, stem_list, suffix_list], f)
+        # Stem/Suffix display plot
+        model.display_plot(total_performance[0])
+        model.display_plot(total_performance[1])
 
     # Restore it
-    with open('segmented.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
+    with open(filename+'.pkl', 'rb') as f:
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     # Inference
