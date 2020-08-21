@@ -110,6 +110,10 @@ class MixtureModel:
     def remove_current_data(self, index, input_data, orig_data):
         new_cluster = {}
 
+        cluster_list = list(set(orig_data))
+        start, end = cluster_list[0], cluster_list[-1]
+        missing_list = sorted(set(range(start, end + 1)).difference(cluster_list))
+
         for idx, d in enumerate(input_data):
             # Skip the given index
             if idx != index:
@@ -119,7 +123,7 @@ class MixtureModel:
                 # create new cluster id
                 else:
                     new_cluster[orig_data[idx]] = [d]
-        return new_cluster
+        return missing_list, new_cluster
 
     def fit(self, data, init_data):
         N = len(data)
@@ -128,7 +132,9 @@ class MixtureModel:
             performance = []
             for i, x in enumerate(data):
                 # Remove data point
-                cluster = self.remove_current_data(i, data, init_data)
+                missing_list, cluster = self.remove_current_data(i, data, init_data)
+                print("Cluster list", cluster.keys())
+                print("Missing list", missing_list)
 
                 # Compress the cluster
                 # to prevent from ever increasing cluster id
@@ -144,7 +150,7 @@ class MixtureModel:
                 final_prob = []
 
                 # Estimate Gaussian parameters of each cluster
-                for k, v in sorted(cluster.items()):
+                for k, v in cluster.items():
                     try:
                         n = len(cluster[k])
                         x_bar = np.mean(cluster[k])
@@ -189,7 +195,13 @@ class MixtureModel:
                 norm_prob = final_prob / np.sum(final_prob)
 
                 # Update cluster assignment based on the calculated probability
-                init_data[i] = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
+                new_cluster_id = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
+                if missing_list and new_cluster_id > max(cluster.keys()):
+                    init_data[i] = missing_list[0]
+                else:
+                    init_data[i] = new_cluster_id
+
+                print("Cluster assignment", set(init_data))
 
                 # Computer log-likelihood
                 performance.append(np.log(np.sum(final_prob)))
@@ -212,7 +224,7 @@ class MixtureModel:
         cluster_type = Counter(init_cluster)
         for ix, (k, v) in enumerate(sorted(cluster_type.items())):
             print(
-                "Cluster Id: {}, Mixture: {:.3f}, Mu: {:.3f}, Sigma: {:.2f}".format(ix,
+                "Cluster Id: {}, Mixture: {:.3f}, Mu: {:.3f}, Sigma: {:.2f}".format(k,
                                                                                     v / len(data),
                                                                                     mu[ix],
                                                                                     sigma[ix]))
