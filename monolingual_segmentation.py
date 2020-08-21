@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument("-k", "--cluster", dest="cluster", type=int,
                         default=3, metavar="INT", help="Cluster size [default:3]")
     parser.add_argument("-d", "--data_points", dest="data_points", type=int,
-                        default=-1, metavar="INT", help="Total data points [default:-1]")
+                        default=5000, metavar="INT", help="Total data points [default:5000]")
     parser.add_argument("-i", "--iteration", dest="iteration", type=int,
                         default=5, metavar="INT", help="Iterations [default:50]")
     parser.add_argument("-a", "--alpha", dest="alpha", type=float,
@@ -40,14 +40,13 @@ def parse_args():
                         metavar="STR", help="Input Filename [default:national_very_small.txt]")
     parser.add_argument("-f", "--filename", dest="filename", type=str, default='segmented',
                         metavar="STR", help="File name [default:segmented]")
-    parser.add_argument("-l", "--corpus_length", dest="corpus_length", type=int, default=5000,
-                        metavar="INT", help="Corpus length default:5000")
-    parser.add_argument('-t', "--testing", default=True, action="store_true", help="For testing purpose only")
+    parser.add_argument('-t', "--testing", default=False, action="store_true", help="For testing purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input testing word")
     args = parser.parse_args()
     return args
 
-def filter(text):
+
+def process(text):
   text = re.sub(r'\([^)]*\)', r'', text)
   text = re.sub(r'\[[^\]]*\]', r'', text)
   text = re.sub(r'<[^>]*>', r'', text)
@@ -75,7 +74,7 @@ class MixtureModel:
     # Read file
     def read_corpus(self):
         with open(self.input_filename) as f:
-            text = filter(f.read())
+            text = process(f.read())
             corpus = text.split()[:self.N]
             corpus_len = len(corpus)
             print("Corpus length", corpus_len)
