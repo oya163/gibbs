@@ -16,6 +16,7 @@ import grapheme
 import pickle
 import math
 import argparse
+import utilities as utilities
 from mpmath import gamma
 
 np.random.seed(163)
@@ -40,6 +41,8 @@ def parse_args():
                         metavar="STR", help="Input Filename [default:national_very_small.txt]")
     parser.add_argument("-f", "--filename", dest="filename", type=str, default='segmented',
                         metavar="STR", help="File name [default:segmented]")
+    parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='segmentation.log',
+                        metavar="STR", help="File name [default:segmentation.log]")
     parser.add_argument('-t', "--testing", default=False, action="store_true", help="For testing purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input testing word")
     args = parser.parse_args()
@@ -59,7 +62,7 @@ def process(text):
 
 
 class MixtureModel:
-    def __init__(self, K, A, N, total_iteration, method, filename, input_filename):
+    def __init__(self, K, A, N, total_iteration, method, filename, input_filename, logger):
         # Number of cluster
         self.K = K
         self.A = A
@@ -70,6 +73,7 @@ class MixtureModel:
         self.beta_0 = 2.0
         self.filename = filename
         self.input_filename = input_filename
+        self.logger = logger
 
     # Read file
     def read_corpus(self):
@@ -77,7 +81,7 @@ class MixtureModel:
             text = process(f.read())
             corpus = text.split()[:self.N]
             corpus_len = len(corpus)
-            print("Corpus length", corpus_len)
+            self.logger.info("Corpus length : {}".format(corpus_len))
         return corpus
 
     # Single split at each possible boundary
@@ -123,7 +127,7 @@ class MixtureModel:
                 if each_split[1]:
                     suffix_list.append(each_split[1])
 
-        print("Length of stem: {} and suffix: {}".format(len(stem_list), len(suffix_list)))
+        self.logger.info("Length of stem: {} and suffix: {}".format(len(stem_list), len(suffix_list)))
         return words, stem_list, suffix_list
 
     # Geometric base distribution
@@ -158,7 +162,7 @@ class MixtureModel:
         return float(p)
 
     def _fit(self, data, init_data):
-        N = len(init_data)
+        H = len(init_data)
         performance = []
         for i, x in enumerate(data):
             # Remove data point
@@ -190,11 +194,11 @@ class MixtureModel:
                 cluster_prob.append(curr_prob)
 
                 # Count of data points in each cluster
-                likelihood = n / (N + self.A - 1)
+                likelihood = n / (H + self.A - 1)
                 final_prob.append(likelihood * cluster_prob[-1])
 
             # Probability of joining new cluster
-            final_prob.append((self.A / (N + self.A - 1)) * self.g0(0.5, x_len))
+            final_prob.append((self.A / (H + self.A - 1)) * self.g0(0.5, x_len))
 
             # Normalize the probability
             norm_prob = final_prob / np.sum(final_prob)
@@ -212,20 +216,20 @@ class MixtureModel:
         total_performance = [[] for x in range(2)]
         best_performance = -math.inf
         for itr in range(self.total_iteration):
-            print("Training iteration: {}".format(itr))
+            self.logger.info("Training iteration: {}".format(itr))
             st_cluster, st_performance = self._fit(data[0], init_data[0])
             sf_cluster, sf_performance = self._fit(data[1], init_data[1])
 
-            print("Cluster size : {}".format(set(st_cluster)))
+            self.logger.info("Cluster size : {}\n".format(set(st_cluster)))
 
             curr_performance = (np.sum(st_performance) + np.sum(sf_performance)) / 2
             total_performance[0].append(np.sum(st_performance))
             total_performance[1].append(np.sum(sf_performance))
 
             if curr_performance > best_performance:
-                print("Saving best model !!!")
                 best_performance = curr_performance
                 save_filename = self.filename + '.pkl'
+                self.logger.info("Best model saved to {}".format(save_filename))
                 with open(save_filename, 'wb') as f:
                     pickle.dump([st_cluster, sf_cluster, stem_list, suffix_list], f)
 
@@ -240,14 +244,13 @@ class MixtureModel:
                 final_cluster[id] = [morpheme_list[index]]
 
         # for k,v in final_cluster.items():
-        #     print(k, v)
+        #     self.logger.info(k, v)
         #
-        # print("Length of given cluster list = ", len(final_cluster))
+        # self.logger.info("Length of given cluster list = ", len(final_cluster))
         return final_cluster
 
     # Display log likelihood plot
     def display_plot(self, total_performance):
-        # Display plot
         plt.figure(figsize=(10, 5))
         plt.plot(total_performance)
         plt.title("Log-Likelihood")
@@ -295,9 +298,10 @@ class MixtureModel:
             p_suffix = self.get_posterior_by_sampling(suffix_cluster, sf_cluster, suffix_list, suffix)
             final_prob.append(p_stem * p_suffix)
 
-        print("All probable splits")
+        self.logger.info("\n======================INFERENCE=============================\n")
+        self.logger.info("All probable splits")
         for x, y in zip(split_list, final_prob):
-            print(x, y)
+            self.logger.info("{} {}".format(x, y))
 
         # Return splits with max probability
         return split_list[np.argmax(final_prob)], max(final_prob)
@@ -316,11 +320,15 @@ def main():
     method = args.method
     filename = args.filename
     input_filename = args.input_filename
+    log_filename = args.log_filename
+
+    logger = utilities.get_logger(log_filename)
 
     # define model
-    model = MixtureModel(K, A, N, total_iteration, method, filename, input_filename)
+    model = MixtureModel(K, A, N, total_iteration, method, filename, input_filename, logger)
 
     if not testing:
+        logger.info("\n======================TRAINING=============================\n")
         # generate data
         customers, stem_list, suffix_list = model.generate_data()
 
@@ -328,7 +336,6 @@ def main():
         init_data_stem = model.initialize_cluster(stem_list)
         init_data_suffix = model.initialize_cluster(suffix_list)
 
-        # print(itr)
         total_performance = model.fit((stem_list, suffix_list),
                                       (init_data_stem, init_data_suffix),
                                       (stem_list, suffix_list))
@@ -344,7 +351,7 @@ def main():
     # Inference
     best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
 
-    print("\nBest split {} {}\n".format(best_split, best_prob))
+    logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
 if __name__ == "__main__":
