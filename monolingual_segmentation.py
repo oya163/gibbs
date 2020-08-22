@@ -47,15 +47,15 @@ def parse_args():
 
 
 def process(text):
-  text = re.sub(r'\([^)]*\)', r'', text)
-  text = re.sub(r'\[[^\]]*\]', r'', text)
-  text = re.sub(r'<[^>]*>', r'', text)
-  text = re.sub(r'[!।,\']', r'', text)
-  text = re.sub(r'[०१२३४५६७८९]', r'', text)
-  text = text.replace(u'\ufeff','')
-  text = text.replace(u'\xa0', u' ')
-  text = re.sub(r'( )+', r' ', text)
-  return text
+    text = re.sub(r'\([^)]*\)', r'', text)
+    text = re.sub(r'\[[^\]]*\]', r'', text)
+    text = re.sub(r'<[^>]*>', r'', text)
+    text = re.sub(r'[!।,\']', r'', text)
+    text = re.sub(r'[०१२३४५६७८९]', r'', text)
+    text = text.replace(u'\ufeff', '')
+    text = text.replace(u'\xa0', u' ')
+    text = re.sub(r'( )+', r' ', text)
+    return text
 
 
 class MixtureModel:
@@ -330,15 +330,15 @@ def main():
 
         # print(itr)
         total_performance = model.fit((stem_list, suffix_list),
-                  (init_data_stem, init_data_suffix),
-                  (stem_list, suffix_list))
+                                      (init_data_stem, init_data_suffix),
+                                      (stem_list, suffix_list))
 
         # Stem/Suffix display plot
         model.display_plot(total_performance[0])
         model.display_plot(total_performance[1])
 
     # Restore it
-    with open(filename+'.pkl', 'rb') as f:
+    with open(filename + '.pkl', 'rb') as f:
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     # Inference
