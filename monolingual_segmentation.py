@@ -4,9 +4,6 @@
 # It is based on goldwater-etal-2006-contextual
 # https://www.aclweb.org/anthology/P06-1085/
 # Base distribution - Geometric distribution
-#
-# This program is not complete and in its naive version
-# Still under construction
 
 
 import regex as re
@@ -61,6 +58,46 @@ def process(text):
     return text
 
 
+# Single split at each possible boundary
+def split_over_length(word):
+    split_list = []
+    for n in range(1, grapheme.length(word) + 1):
+        # split_list.append((word[:n], word[n:len(word)]))
+        split_list.append((grapheme.slice(word, 0, n), grapheme.slice(word, n, grapheme.length(word))))
+    return split_list
+
+
+# Single split at each possible boundary
+def geometric_split(word, prob):
+    split_point = set(np.random.geometric(prob, size=len(word)))
+    split_list = []
+    for each in split_point:
+        split_list.append((grapheme.slice(word, 0, each), grapheme.slice(word, each, grapheme.length(word))))
+
+    # for n in range(1, grapheme.length(word) + 1):
+    # split_list.append((word[:n], word[n:len(word)]))
+    # split_list.append((grapheme.slice(word, 0, n), grapheme.slice(word, n, grapheme.length(word))))
+    return split_list
+
+
+# Geometric base distribution
+def g0(p, k):
+    return p * ((1 - p) ** (k - 1))
+
+
+# Remove given data from cluster
+def remove_current_data(index, input_data, orig_data):
+    new_cluster = {}
+    for idx, d in enumerate(input_data):
+        # Skip the given index
+        if idx != index:
+            if orig_data[idx] in new_cluster:
+                new_cluster[orig_data[idx]].append(d)
+            else:
+                new_cluster[orig_data[idx]] = [d]
+    return new_cluster
+
+
 class MixtureModel:
     def __init__(self, K, A, N, total_iteration, method, filename, input_filename, logger):
         # Number of cluster
@@ -84,26 +121,7 @@ class MixtureModel:
             self.logger.info("Corpus length : {}".format(corpus_len))
         return corpus
 
-    # Single split at each possible boundary
-    def split_over_length(self, word):
-        split_list = []
-        for n in range(1, grapheme.length(word) + 1):
-            # split_list.append((word[:n], word[n:len(word)]))
-            split_list.append((grapheme.slice(word, 0, n), grapheme.slice(word, n, grapheme.length(word))))
-        return split_list
-
-    # Single split at each possible boundary
-    def geometric_split(self, word, prob):
-        split_point = set(np.random.geometric(prob, size=len(word)))
-        split_list = []
-        for each in split_point:
-            split_list.append((grapheme.slice(word, 0, each), grapheme.slice(word, each, grapheme.length(word))))
-
-        # for n in range(1, grapheme.length(word) + 1):
-        # split_list.append((word[:n], word[n:len(word)]))
-        # split_list.append((grapheme.slice(word, 0, n), grapheme.slice(word, n, grapheme.length(word))))
-        return split_list
-
+    # Generates data, splitting into stem/suffix
     def generate_data(self):
         # sent = "नेपाली सिनेमा र एकाध नाटकमा समेत विगत तीस वर्षदेखि क्रियाशील कलाकार राजेश हमाल सिनेमा क्षेत्रका " \
         #        "महानायक हुन् वा होइनन् भन्नेबारे त्यस क्षेत्रमा रुचि राख्नेहरूबीच तात्तातो बहस चल्यो । "
@@ -119,7 +137,7 @@ class MixtureModel:
 
         for each in sent:
             # splits = self.geometric_split(each, prob=0.5)
-            splits = self.split_over_length(each)
+            splits = split_over_length(each)
             words.extend(splits)
             for each_split in splits:
                 if each_split[0]:
@@ -130,10 +148,6 @@ class MixtureModel:
         self.logger.info("Length of stem: {} and suffix: {}".format(len(stem_list), len(suffix_list)))
         return words, stem_list, suffix_list
 
-    # Geometric base distribution
-    def g0(self, p, k):
-        return p * ((1 - p) ** (k - 1))
-
     # Random assignment by generating random number
     # between 0 and given number of cluster
     def initialize_cluster(self, data):
@@ -142,18 +156,7 @@ class MixtureModel:
             init_data.append(np.random.randint(0, self.K))
         return init_data
 
-    # Remove given data from cluster
-    def remove_current_data(self, index, input_data, orig_data):
-        new_cluster = {}
-        for idx, d in enumerate(input_data):
-            # Skip the given index
-            if idx != index:
-                if orig_data[idx] in new_cluster:
-                    new_cluster[orig_data[idx]].append(d)
-                else:
-                    new_cluster[orig_data[idx]] = [d]
-        return new_cluster
-
+    # Beta geometric conjuate prior
     def beta_geometric_posterior(self, x_len, n, sum_of_grapheme):
         alpha_ = self.alpha_0 + n
         beta_ = self.beta_0 + sum_of_grapheme - n
@@ -161,12 +164,13 @@ class MixtureModel:
         p = beta(alpha_ + 1, beta_ + x_len - 1) / beta(alpha_, beta_)
         return float(p)
 
+    # Helper fit function
     def _fit(self, data, init_data):
         H = len(init_data)
         performance = []
         for i, x in enumerate(data):
             # Remove data point
-            cluster = self.remove_current_data(i, data, init_data)
+            cluster = remove_current_data(i, data, init_data)
             x_len = grapheme.length(x)
 
             # Compress the cluster
@@ -187,7 +191,7 @@ class MixtureModel:
                 if self.method == 'mle':
                     # estimate theta using MLE
                     theta_es = n / sum_of_grapheme
-                    curr_prob = self.g0(theta_es, x_len)
+                    curr_prob = g0(theta_es, x_len)
                 elif self.method == 'collapsed':
                     curr_prob = self.beta_geometric_posterior(x_len, n, sum_of_grapheme)
 
@@ -198,7 +202,7 @@ class MixtureModel:
                 final_prob.append(likelihood * cluster_prob[-1])
 
             # Probability of joining new cluster
-            final_prob.append((self.A / (H + self.A - 1)) * self.g0(0.5, x_len))
+            final_prob.append((self.A / (H + self.A - 1)) * g0(0.5, x_len))
 
             # Normalize the probability
             norm_prob = final_prob / np.sum(final_prob)
@@ -211,6 +215,7 @@ class MixtureModel:
 
         return init_data, performance
 
+    # Main fit function
     def fit(self, data, init_data, data_list):
         stem_list, suffix_list = data_list
         total_performance = [[] for x in range(2)]
@@ -235,6 +240,7 @@ class MixtureModel:
 
         return total_performance
 
+    # Accumulate the data into cluster {key: value} pairs
     def clusterize(self, cluster, morpheme_list):
         final_cluster = {}
         for index, id in enumerate(cluster):
@@ -259,6 +265,9 @@ class MixtureModel:
         plt.xticks([i for i in range(self.total_iteration)])
         plt.show()
 
+    # Inference
+    # Get posterior probability based on the cluster assignment
+    # of given morpheme, assumption is a morpheme is assigned to only one cluster
     def get_posterior_by_index(self, cluster, morpheme_assignment, initial_list, morpheme):
         index = initial_list.index(morpheme) if morpheme in initial_list else -1
         if index >= 0:
@@ -266,8 +275,11 @@ class MixtureModel:
             n_si = len(cluster[cluster_id])
             return n_si / (len(morpheme_assignment) + self.A)
         else:
-            return self.A * self.g0(0.5, grapheme.length(morpheme)) / (len(morpheme_assignment) + self.A)
+            return self.A * g0(0.5, grapheme.length(morpheme)) / (len(morpheme_assignment) + self.A)
 
+    # Inference
+    # Get posterior probability based on sampling among the cluster assignment
+    # of given morpheme, because a morpheme can be assigned to multiple clusters
     def get_posterior_by_sampling(self, cluster, morpheme_assignment, initial_list, morpheme):
         initial_list = np.array(initial_list)
         indices = np.where(initial_list == morpheme)[0].tolist()
@@ -284,11 +296,12 @@ class MixtureModel:
             prob_index = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
             return prob[prob_index]
         else:
-            return self.A * self.g0(0.5, grapheme.length(morpheme)) / (L + self.A)
+            return self.A * g0(0.5, grapheme.length(morpheme)) / (L + self.A)
 
+    # Inference
     def inference(self, st_cluster, sf_cluster, stem_list, suffix_list, given_word):
         # split_list = self.geometric_split(given_word, 0.1)
-        split_list = self.split_over_length(given_word)
+        split_list = split_over_length(given_word)
         stem_cluster = self.clusterize(st_cluster, stem_list)
         suffix_cluster = self.clusterize(sf_cluster, suffix_list)
 
