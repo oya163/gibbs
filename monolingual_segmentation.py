@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-    Description: Unsupervised Monolingual Word Segmentation
-    It is based on goldwater-etal-2006-contextual
-    https://www.aclweb.org/anthology/P06-1085/
-    Base distribution - Geometric distribution
 
-    This program is not complete and in its naive version
-    Still under construction
-"""
+# Description: Unsupervised Monolingual Word Segmentation
+# It is based on goldwater-etal-2006-contextual
+# https://www.aclweb.org/anthology/P06-1085/
+# Base distribution - Geometric distribution
+#
+# This program is not complete and in its naive version
+# Still under construction
+
 
 import regex as re
 import numpy as np
