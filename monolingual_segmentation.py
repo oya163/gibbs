@@ -15,6 +15,9 @@ import math
 import argparse
 import utilities as utilities
 from mpmath import gamma
+import sys
+import csv
+from sklearn.metrics import precision_recall_fscore_support, classification_report
 
 np.random.seed(163)
 
@@ -35,13 +38,17 @@ def parse_args():
     parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
                         choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
     parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
-                        metavar="STR", help="Input Filename [default:national_very_small.txt]")
-    parser.add_argument("-f", "--filename", dest="filename", type=str, default='segmented',
+                        metavar="PATH", help="Input Filename [default:national_very_small.txt]")
+    parser.add_argument("-f", "--model_filename", dest="model_filename", type=str, default='segmented',
                         metavar="STR", help="File name [default:segmented]")
     parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='segmentation.log',
-                        metavar="STR", help="File name [default:segmentation.log]")
-    parser.add_argument('-t', "--testing", default=False, action="store_true", help="For testing purpose only")
-    parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input testing word")
+                        metavar="PATH", help="File name [default:segmentation.log]")
+    parser.add_argument('-t', "--inference", default=True, action="store_true", help="For inference purpose only")
+    parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input inference word")
+    parser.add_argument('-e', "--evaluation", default=True, action="store_true", help="For evaluation purpose only")
+    parser.add_argument("-g", "--gold_file", dest="gold_file", type=str,
+                        default='gold_standard.txt', required='--evaluate' in sys.argv,
+                        metavar="PATH", help="File name [default:gold_standard.txt]")
     args = parser.parse_args()
     return args
 
@@ -99,7 +106,7 @@ def remove_current_data(index, input_data, orig_data):
 
 
 class MixtureModel:
-    def __init__(self, K, A, N, total_iteration, method, filename, input_filename, logger):
+    def __init__(self, K, A, N, total_iteration, method, model_filename, input_filename, logger):
         # Number of cluster
         self.K = K
         self.A = A
@@ -108,7 +115,7 @@ class MixtureModel:
         self.method = method
         self.alpha_0 = 1.0
         self.beta_0 = 2.0
-        self.filename = filename
+        self.model_filename = model_filename
         self.input_filename = input_filename
         self.logger = logger
 
@@ -233,7 +240,7 @@ class MixtureModel:
 
             if curr_performance > best_performance:
                 best_performance = curr_performance
-                save_filename = self.filename + '.pkl'
+                save_filename = self.model_filename + '.pkl'
                 self.logger.info("Best model saved to {}".format(save_filename))
                 with open(save_filename, 'wb') as f:
                     pickle.dump([st_cluster, sf_cluster, stem_list, suffix_list], f)
@@ -319,6 +326,49 @@ class MixtureModel:
         # Return splits with max probability
         return split_list[np.argmax(final_prob)], max(final_prob)
 
+    # Evaluate
+    def evaluate(self, st_cluster, sf_cluster, stem_list, suffix_list, gold_file):
+        # Read gold file and collect only words
+        word_list = []
+        pred_list = []
+        gold_list = []
+        with open(gold_file, 'r') as f, open('result_file.txt', 'w') as g:
+            reader = csv.reader(f, delimiter='\t')
+            # writer = csv.writer(g, delimiter='\t')
+            for word, morphemes, stem_span, suffix_span in reader:
+                word_list.append(word)
+                gold_list.append(True)
+                # Do this process for each word
+                split_list = split_over_length(word)
+                stem_cluster = self.clusterize(st_cluster, stem_list)
+                suffix_cluster = self.clusterize(sf_cluster, suffix_list)
+
+                final_prob = []
+                for stem, suffix in split_list:
+                    p_stem = self.get_posterior_by_sampling(stem_cluster, st_cluster, stem_list, stem)
+                    p_suffix = self.get_posterior_by_sampling(suffix_cluster, sf_cluster, suffix_list, suffix)
+                    final_prob.append(p_stem * p_suffix)
+
+                best_split = split_list[np.argmax(final_prob)]
+
+                stem_span_pred = re.search(best_split[0], word).span()
+                stem_span_pred = str(stem_span_pred[0]) + ' ' + str(stem_span_pred[1])
+
+                pred_list.append(stem_span == stem_span_pred)
+
+                suffix_span_pred = re.search(best_split[1], word).span()
+                suffix_span_pred = str(suffix_span_pred[0]) + ' ' + str(suffix_span_pred[1])
+
+                note = word+'\t'+morphemes+'\t'+best_split[0]+' '+best_split[1]+'\t'+str(stem_span)+' '+str(suffix_span)+'\n'
+
+                g.write(note)
+
+                # self.logger.info("\n======================EVALUATION=============================\n")
+                # self.logger.info("Acc, Prec, Rec, F-score")
+
+            # Return acc, prec, recall, f1
+            return precision_recall_fscore_support(gold_list, pred_list, average='weighted')
+
 
 def main():
     args = parse_args()
@@ -328,19 +378,21 @@ def main():
     N = args.data_points
     total_iteration = args.iteration
     A = args.alpha
-    testing = args.testing
+    inference = args.inference
+    evaluation = args.evaluation
+    gold_file = args.gold_file
     word = args.word
     method = args.method
-    filename = args.filename
+    model_filename = args.model_filename
     input_filename = args.input_filename
     log_filename = args.log_filename
 
     logger = utilities.get_logger(log_filename)
 
     # define model
-    model = MixtureModel(K, A, N, total_iteration, method, filename, input_filename, logger)
+    model = MixtureModel(K, A, N, total_iteration, method, model_filename, input_filename, logger)
 
-    if not testing:
+    if not inference and not evaluation:
         logger.info("\n======================TRAINING=============================\n")
         # generate data
         customers, stem_list, suffix_list = model.generate_data()
@@ -358,13 +410,20 @@ def main():
         model.display_plot(total_performance[1])
 
     # Restore it
-    with open(filename + '.pkl', 'rb') as f:
+    with open(model_filename + '.pkl', 'rb') as f:
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
-    # Inference
-    best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
+    # Evaluation
+    if evaluation:
+        prec, rec, fscore, _ = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
-    logger.info("Best split {} {}\n".format(best_split, best_prob))
+        logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
+
+    # Inference
+    if inference:
+        best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
+
+        logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
 if __name__ == "__main__":
