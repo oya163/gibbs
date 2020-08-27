@@ -143,7 +143,7 @@ class MixtureModel:
         words = []
 
         for each in sent:
-            splits = self.geometric_split(each, prob=0.5)
+            splits = geometric_split(each, prob=0.5)
             # splits = split_over_length(each)
             words.extend(splits)
             for each_split in splits:
@@ -307,7 +307,7 @@ class MixtureModel:
 
     # Inference
     def inference(self, st_cluster, sf_cluster, stem_list, suffix_list, given_word):
-        # split_list = self.geometric_split(given_word, 0.1)
+        # split_list = geometric_split(given_word, 0.1)
         split_list = split_over_length(given_word)
         stem_cluster = self.clusterize(st_cluster, stem_list)
         suffix_cluster = self.clusterize(sf_cluster, suffix_list)
