@@ -143,8 +143,8 @@ class MixtureModel:
         words = []
 
         for each in sent:
-            # splits = self.geometric_split(each, prob=0.5)
-            splits = split_over_length(each)
+            splits = self.geometric_split(each, prob=0.5)
+            # splits = split_over_length(each)
             words.extend(splits)
             for each_split in splits:
                 if each_split[0]:
@@ -359,7 +359,9 @@ class MixtureModel:
                 suffix_span_pred = re.search(best_split[1], word).span()
                 suffix_span_pred = str(suffix_span_pred[0]) + ' ' + str(suffix_span_pred[1])
 
-                note = word+'\t'+morphemes+'\t'+best_split[0]+' '+best_split[1]+'\t'+str(stem_span)+' '+str(suffix_span)+'\n'
+                note = word + '\t' + morphemes + '\t' + best_split[0] + ' ' + best_split[1] + '\t' \
+                       + str(stem_span) + ' ' + str(suffix_span) \
+                       + '\t' + str(stem_span_pred) + ' ' + str(suffix_span_pred) + '\n'
 
                 g.write(note)
 
