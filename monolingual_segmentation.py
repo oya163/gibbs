@@ -43,9 +43,9 @@ def parse_args():
                         metavar="STR", help="File name [default:segmented]")
     parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='segmentation.log',
                         metavar="PATH", help="File name [default:segmentation.log]")
-    parser.add_argument('-t', "--inference", default=True, action="store_true", help="For inference purpose only")
+    parser.add_argument('-t', "--inference", default=False, action="store_true", help="For inference purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input inference word")
-    parser.add_argument('-e', "--evaluation", default=True, action="store_true", help="For evaluation purpose only")
+    parser.add_argument('-e', "--evaluation", default=False, action="store_true", help="For evaluation purpose only")
     parser.add_argument("-g", "--gold_file", dest="gold_file", type=str,
                         default='gold_standard.txt', required='--evaluate' in sys.argv,
                         metavar="PATH", help="File name [default:gold_standard.txt]")
@@ -416,16 +416,14 @@ def main():
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     # Evaluation
-    if evaluation:
-        prec, rec, fscore, _ = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
+    prec, rec, fscore, _ = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
-        logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
+    logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
 
     # Inference
-    if inference:
-        best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
+    best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
 
-        logger.info("Best split {} {}\n".format(best_split, best_prob))
+    logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
 if __name__ == "__main__":
