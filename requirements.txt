@@ -3,3 +3,4 @@ scipy~=1.4.1
 matplotlib~=3.2.1
 grapheme~=0.6.0
 mpmath~=1.1.0
+regex
