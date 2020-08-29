@@ -125,6 +125,19 @@ class MixtureModel:
         self.input_filename = input_filename
         self.logger = logger
 
+        self.logger.info("\n======================HYPERPARAMETERS=============================\n")
+        self.logger.info("Initial cluster size : {}".format(self.K))
+        self.logger.info("CRP alpha : {}".format(self.A))
+        self.logger.info("Number of words : {}".format(self.N))
+        self.logger.info("Number of iteration : {}".format(self.total_iteration))
+        self.logger.info("Selected method : {}".format(self.method))
+        self.logger.info("Beta Geometric alpha : {}".format(self.alpha_0))
+        self.logger.info("Beta Geometric beta : {}".format(self.beta_0))
+        self.logger.info("Probability of joining new cluster : {}".format(self.prob_c))
+        self.logger.info("Model filename : {}".format(self.model_filename))
+        self.logger.info("Training filename : {}".format(self.input_filename))
+        self.logger.info("\n==================================================================\n")
+
     # Read file
     def read_corpus(self):
         with open(self.input_filename) as f:
