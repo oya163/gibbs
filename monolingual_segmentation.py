@@ -34,6 +34,12 @@ def parse_args():
                         default=5, metavar="INT", help="Iterations [default:50]")
     parser.add_argument("-a", "--alpha", dest="alpha", type=float,
                         default=0.9, metavar="FLOAT", help="Alpha")
+    parser.add_argument("--alpha_0", dest="alpha_0", type=float,
+                        default=1.0, metavar="FLOAT", help="Beta Geometric Alpha")
+    parser.add_argument("--beta_0", dest="beta_0", type=float,
+                        default=2.0, metavar="FLOAT", help="Beta Geometric Beta")
+    parser.add_argument("-p", "--prob_c", dest="prob_c", type=float,
+                        default=0.5, metavar="FLOAT", help="Probability of joining new cluster")
     parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
                         choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
     parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
@@ -105,15 +111,16 @@ def remove_current_data(index, input_data, orig_data):
 
 
 class MixtureModel:
-    def __init__(self, K, A, N, total_iteration, method, model_filename, input_filename, logger):
+    def __init__(self, K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename, logger):
         # Number of cluster
         self.K = K
         self.A = A
         self.N = N
         self.total_iteration = total_iteration
         self.method = method
-        self.alpha_0 = 1.0
-        self.beta_0 = 2.0
+        self.alpha_0 = alpha_0
+        self.beta_0 = beta_0
+        self.prob_c = prob_c
         self.model_filename = model_filename
         self.input_filename = input_filename
         self.logger = logger
@@ -208,7 +215,7 @@ class MixtureModel:
                 final_prob.append(likelihood * cluster_prob[-1])
 
             # Probability of joining new cluster
-            final_prob.append((self.A / (H + self.A - 1)) * g0(0.5, x_len))
+            final_prob.append((self.A / (H + self.A - 1)) * g0(self.prob_c, x_len))
 
             # Normalize the probability
             norm_prob = final_prob / np.sum(final_prob)
@@ -281,7 +288,7 @@ class MixtureModel:
             n_si = len(cluster[cluster_id])
             return n_si / (len(morpheme_assignment) + self.A)
         else:
-            return self.A * g0(0.5, grapheme.length(morpheme)) / (len(morpheme_assignment) + self.A)
+            return self.A * g0(self.prob_c, grapheme.length(morpheme)) / (len(morpheme_assignment) + self.A)
 
     # Inference
     # Get posterior probability based on sampling among the cluster assignment
@@ -367,10 +374,7 @@ class MixtureModel:
 
                 g.write(note)
 
-                # self.logger.info("\n======================EVALUATION=============================\n")
-                # self.logger.info("Acc, Prec, Rec, F-score")
-
-            # Return acc, prec, recall, f1
+            # Return prec, recall, f1
             prec = hit/(hit + insert)
             recall = hit/(hit + delete)
             fscore = (2*hit) / ((2*hit)+insert+delete)
@@ -385,6 +389,9 @@ def main():
     N = args.data_points
     total_iteration = args.iteration
     A = args.alpha
+    alpha_0 = args.alpha_0
+    beta_0 = args.beta_0
+    prob_c = args.prob_c
     inference = args.inference
     evaluation = args.evaluation
     gold_file = args.gold_file
@@ -397,7 +404,7 @@ def main():
     logger = utilities.get_logger(log_filename)
 
     # define model
-    model = MixtureModel(K, A, N, total_iteration, method, model_filename, input_filename, logger)
+    model = MixtureModel(K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename, logger)
 
     if not inference and not evaluation:
         logger.info("\n======================TRAINING=============================\n")
