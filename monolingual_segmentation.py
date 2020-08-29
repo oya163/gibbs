@@ -17,7 +17,6 @@ import utilities as utilities
 from mpmath import gamma
 import sys
 import csv
-from sklearn.metrics import precision_recall_fscore_support, classification_report
 
 np.random.seed(163)
 
@@ -34,7 +33,7 @@ def parse_args():
     parser.add_argument("-i", "--iteration", dest="iteration", type=int,
                         default=5, metavar="INT", help="Iterations [default:50]")
     parser.add_argument("-a", "--alpha", dest="alpha", type=float,
-                        default=0.1, metavar="FLOAT", help="Alpha")
+                        default=0.9, metavar="FLOAT", help="Alpha")
     parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
                         choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
     parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
@@ -113,8 +112,8 @@ class MixtureModel:
         self.N = N
         self.total_iteration = total_iteration
         self.method = method
-        self.alpha_0 = 0.5
-        self.beta_0 = 0.8
+        self.alpha_0 = 1.0
+        self.beta_0 = 2.0
         self.model_filename = model_filename
         self.input_filename = input_filename
         self.logger = logger
@@ -209,7 +208,7 @@ class MixtureModel:
                 final_prob.append(likelihood * cluster_prob[-1])
 
             # Probability of joining new cluster
-            final_prob.append((self.A / (H + self.A - 1)) * g0(0.2, x_len))
+            final_prob.append((self.A / (H + self.A - 1)) * g0(0.5, x_len))
 
             # Normalize the probability
             norm_prob = final_prob / np.sum(final_prob)
@@ -303,7 +302,7 @@ class MixtureModel:
             prob_index = np.random.choice(len(norm_prob), 1, p=norm_prob)[0]
             return prob[prob_index]
         else:
-            return self.A * g0(0.2, grapheme.length(morpheme)) / (L + self.A)
+            return self.A * g0(0.5, grapheme.length(morpheme)) / (L + self.A)
 
     # Inference
     def inference(self, st_cluster, sf_cluster, stem_list, suffix_list, given_word):
@@ -332,10 +331,13 @@ class MixtureModel:
         word_list = []
         pred_list = []
         gold_list = []
+        hit = 0
+        insert = 0
+        delete = 0
         with open(gold_file, 'r') as f, open('result_file.txt', 'w') as g:
             reader = csv.reader(f, delimiter='\t')
             # writer = csv.writer(g, delimiter='\t')
-            for word, morphemes, stem_span, suffix_span in reader:
+            for word, morphemes in reader:
                 word_list.append(word)
                 gold_list.append(True)
                 # Do this process for each word
@@ -350,18 +352,18 @@ class MixtureModel:
                     final_prob.append(p_stem * p_suffix)
 
                 best_split = split_list[np.argmax(final_prob)]
+                pred_stem, pred_suffix = best_split[0], best_split[1]
+                gold_stem, gold_suffix = morphemes.split()[0], morphemes.split()[1]
+                pred_stem_len = grapheme.length(pred_stem)
+                gold_stem_len = grapheme.length(gold_stem)
+                if pred_stem_len == gold_stem_len:
+                    hit += 1
+                elif pred_stem_len < gold_stem_len:
+                    insert += 1
+                elif pred_stem_len > gold_stem_len:
+                    delete += 1
 
-                stem_span_pred = re.search(best_split[0], word).span()
-                stem_span_pred = str(stem_span_pred[0]) + ' ' + str(stem_span_pred[1])
-
-                pred_list.append(stem_span == stem_span_pred)
-
-                suffix_span_pred = re.search(best_split[1], word).span()
-                suffix_span_pred = str(suffix_span_pred[0]) + ' ' + str(suffix_span_pred[1])
-
-                note = word + '\t' + morphemes + '\t' + best_split[0] + ' ' + best_split[1] + '\t' \
-                       + str(stem_span) + ' ' + str(suffix_span) \
-                       + '\t' + str(stem_span_pred) + ' ' + str(suffix_span_pred) + '\n'
+                note = word + '\t' + morphemes + '\t' + best_split[0] + ' ' + best_split[1] + '\n'
 
                 g.write(note)
 
@@ -369,7 +371,10 @@ class MixtureModel:
                 # self.logger.info("Acc, Prec, Rec, F-score")
 
             # Return acc, prec, recall, f1
-            return precision_recall_fscore_support(gold_list, pred_list, average='weighted')
+            prec = hit/(hit + insert)
+            recall = hit/(hit + delete)
+            fscore = (2*hit) / ((2*hit)+insert+delete)
+            return prec, recall, fscore
 
 
 def main():
@@ -416,7 +421,7 @@ def main():
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     # Evaluation
-    prec, rec, fscore, _ = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
+    prec, rec, fscore = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
     logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
 
