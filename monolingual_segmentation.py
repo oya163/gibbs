@@ -335,18 +335,12 @@ class MixtureModel:
     # Evaluate
     def evaluate(self, st_cluster, sf_cluster, stem_list, suffix_list, gold_file):
         # Read gold file and collect only words
-        word_list = []
-        pred_list = []
-        gold_list = []
         hit = 0
         insert = 0
         delete = 0
         with open(gold_file, 'r') as f, open('result_file.txt', 'w') as g:
             reader = csv.reader(f, delimiter='\t')
-            # writer = csv.writer(g, delimiter='\t')
             for word, morphemes in reader:
-                word_list.append(word)
-                gold_list.append(True)
                 # Do this process for each word
                 split_list = split_over_length(word)
                 stem_cluster = self.clusterize(st_cluster, stem_list)
