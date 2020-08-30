@@ -1,5 +1,5 @@
 FROM python:3
-WORKDIR /home
-RUN git clone https://github.com/oya163/gibbs.git && cd gibbs
+RUN cd /home/ && git clone https://github.com/oya163/gibbs.git
+WORKDIR /home/gibbs/
 RUN pip install -r requirements.txt
-CMD [ "python", "./monolingual_segmentation.py", "-t", "-w", "प्रहरीलाई"]
+CMD [ "python", "./monolingual_segmentation.py", "-t", "-w", "अमेरिकाद्वारा"]
