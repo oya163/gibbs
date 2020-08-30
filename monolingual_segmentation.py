@@ -430,19 +430,25 @@ def main():
         model.display_plot(total_performance[0])
         model.display_plot(total_performance[1])
 
-    # Restore it
-    with open(model_filename + '.pkl', 'rb') as f:
-        st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
+        # If training, then perform evaluation and inference
+        evaluation = True
+        inference = True
 
-    # Evaluation
-    prec, rec, fscore = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
+    if evaluation:
+        # Restore model
+        with open(model_filename + '.pkl', 'rb') as f:
+            st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
-    logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
+        # Evaluation
+        prec, rec, fscore = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
-    # Inference
-    best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
+        logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
 
-    logger.info("Best split {} {}\n".format(best_split, best_prob))
+    if inference:
+        # Inference
+        best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
+
+        logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
 if __name__ == "__main__":
