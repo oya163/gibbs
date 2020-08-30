@@ -44,8 +44,8 @@ def parse_args():
                         choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
     parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
                         metavar="PATH", help="Input Filename [default:national_very_small.txt]")
-    parser.add_argument("-f", "--model_filename", dest="model_filename", type=str, default='segmented',
-                        metavar="STR", help="File name [default:segmented]")
+    parser.add_argument("-f", "--model_filename", dest="model_filename", type=str, default='segmentation_model.pkl',
+                        metavar="STR", help="File name [default:segmentation_model.pkl]")
     parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='segmentation.log',
                         metavar="PATH", help="File name [default:segmentation.log]")
     parser.add_argument('-t', "--inference", default=False, action="store_true", help="For inference purpose only")
@@ -259,7 +259,7 @@ class MixtureModel:
 
             if curr_performance > best_performance:
                 best_performance = curr_performance
-                save_filename = self.model_filename + '.pkl'
+                save_filename = self.model_filename
                 self.logger.info("Best model saved to {}".format(save_filename))
                 with open(save_filename, 'wb') as f:
                     pickle.dump([st_cluster, sf_cluster, stem_list, suffix_list], f)
@@ -435,7 +435,7 @@ def main():
         inference = True
 
     # Restore model
-    with open(model_filename + '.pkl', 'rb') as f:
+    with open(model_filename, 'rb') as f:
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     if evaluation:
