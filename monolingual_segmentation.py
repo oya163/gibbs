@@ -136,7 +136,6 @@ class MixtureModel:
         self.logger.info("Probability of joining new cluster : {}".format(self.prob_c))
         self.logger.info("Model filename : {}".format(self.model_filename))
         self.logger.info("Training filename : {}".format(self.input_filename))
-        self.logger.info("\n==================================================================\n")
 
     # Read file
     def read_corpus(self):
