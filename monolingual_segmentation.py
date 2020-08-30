@@ -336,7 +336,6 @@ class MixtureModel:
             p_suffix = self.get_posterior_by_sampling(suffix_cluster, sf_cluster, suffix_list, suffix)
             final_prob.append(p_stem * p_suffix)
 
-        self.logger.info("\n======================INFERENCE=============================\n")
         self.logger.info("All probable splits")
         for x, y in zip(split_list, final_prob):
             self.logger.info("{} {}".format(x, y))
@@ -438,12 +437,14 @@ def main():
         st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
     if evaluation:
+        logger.info("\n======================EVALUATION=============================\n")
         # Evaluation
         prec, rec, fscore = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
         logger.info("Precision: {:.3f}, Recall: {:.3f}, F-score: {:.3f}".format(prec, rec, fscore))
 
     if inference:
+        logger.info("\n======================INFERENCE=============================\n")
         # Inference
         best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
 
