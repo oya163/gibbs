@@ -434,11 +434,11 @@ def main():
         evaluation = True
         inference = True
 
-    if evaluation:
-        # Restore model
-        with open(model_filename + '.pkl', 'rb') as f:
-            st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
+    # Restore model
+    with open(model_filename + '.pkl', 'rb') as f:
+        st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
+    if evaluation:
         # Evaluation
         prec, rec, fscore = model.evaluate(st_cluster, sf_cluster, stem_list, suffix_list, gold_file)
 
