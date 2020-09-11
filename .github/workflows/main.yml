@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v2
+        uses: py-actions/py-dependency-install@v2.0.2
         with:
           path: "requirements.txt"
 
