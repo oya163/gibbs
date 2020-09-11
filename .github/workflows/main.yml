@@ -21,10 +21,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repo
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
 
-      - name: Run pytest
+      - name: GitHub Action for pytest
         uses: cclauss/GitHub-Action-for-pytest
         with:
           args: python setup.py develop && pytest
