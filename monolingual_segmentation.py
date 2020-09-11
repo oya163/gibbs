@@ -111,7 +111,8 @@ def remove_current_data(index, input_data, orig_data):
 
 
 class MixtureModel:
-    def __init__(self, K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename, logger):
+    def __init__(self, K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename,
+                 logger):
         # Number of cluster
         self.K = K
         self.A = A
@@ -380,9 +381,9 @@ class MixtureModel:
                 g.write(note)
 
             # Return prec, recall, f1
-            prec = hit/(hit + insert)
-            recall = hit/(hit + delete)
-            fscore = (2*hit) / ((2*hit)+insert+delete)
+            prec = hit / (hit + insert)
+            recall = hit / (hit + delete)
+            fscore = (2 * hit) / ((2 * hit) + insert + delete)
             return prec, recall, fscore
 
 
@@ -409,7 +410,8 @@ def main():
     logger = utilities.get_logger(log_filename)
 
     # define model
-    model = MixtureModel(K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename, logger)
+    model = MixtureModel(K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename,
+                         logger)
 
     if not inference and not evaluation:
         logger.info("\n======================TRAINING=============================\n")
@@ -445,6 +447,16 @@ def main():
 
     if inference:
         logger.info("\n======================INFERENCE=============================\n")
+        # Unit test to check if all characters of given word
+        # lies within a devnagari range
+        notdevnagari = re.compile('[^\u0900-\u097F]').search
+        try:
+            assert not bool(notdevnagari(args.word)) == True
+        except AssertionError as e:
+            e.args += ("All characters are not within devnagari range", 101)
+            logger.info(e.args)
+            raise
+
         # Inference
         best_split, best_prob = model.inference(st_cluster, sf_cluster, stem_list, suffix_list, word)
 
