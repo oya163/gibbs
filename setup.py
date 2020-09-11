@@ -14,7 +14,13 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'pytest'
+        'pytest',
+        'regex',
+        'numpy',
+        'scipy',
+        'matplotlib',
+        'grapheme',
+        'mpmath'
     ],
     include_package_data=True,
     python_requires='>=3.7',
