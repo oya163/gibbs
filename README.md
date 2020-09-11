@@ -1,3 +1,5 @@
+![gibbs_ci](https://github.com/oya163/gibbs/workflows/gibbs_ci/badge.svg)
+
 # Gibbs Sampling
 
 These are the outcomes of my learning during my internship in [NAAMII](https://www.naamii.com.np/).
@@ -8,4 +10,4 @@ I worked along with Sushil Awale to implement unsupervised monolingual word segm
 and [snyder-barzilay-2008-unsupervised](https://www.aclweb.org/anthology/P08-1084/). We came up with monolingual word segmentation with beta-geometric conjugate prior over the length of a given word.
 
 ## Tasks-to-do
-[ ] Create Nepali segmentation dataset
+- [x] Create Nepali segmentation dataset
