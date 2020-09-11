@@ -31,5 +31,5 @@ jobs:
       - name: GitHub Action for pytest
         uses: cclauss/GitHub-Action-for-pytest@master
         with:
-          args: python setup.py develop && python -m pip install regex && pytest
+          args: python setup.py develop && pip install regex --user && pytest
         
