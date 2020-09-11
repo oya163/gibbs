@@ -14,12 +14,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'python3-dev',
-        'python-devel',
-        'pytest',
-        'regex',
-        'grapheme',
-        'mpmath'
+        'pytest'
     ],
     include_package_data=True,
     python_requires='>=3.7',
