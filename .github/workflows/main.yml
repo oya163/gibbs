@@ -25,5 +25,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run pytest
-        run: python setup.py develop && pytest
+        uses: actions/checkout@master
+        with:
+          args: python setup.py develop && pytest
         
