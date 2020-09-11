@@ -22,9 +22,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@master
-
       - name: GitHub Action for pytest
-        uses: cclauss/GitHub-Action-for-pytest
+        uses: cclauss/GitHub-Action-for-pytest@master
         with:
           args: python setup.py develop && pytest
         
