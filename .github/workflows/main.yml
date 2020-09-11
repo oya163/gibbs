@@ -28,8 +28,10 @@ jobs:
         with:
           path: "requirements.txt"
 
-      - name: GitHub Action for pytest
-        uses: cclauss/GitHub-Action-for-pytest@master
-        with:
-          args: python setup.py develop && pip install regex --user && pytest
+      - name: Test with pytest
+        run: pytest
+#      - name: GitHub Action for pytest
+#        uses: cclauss/GitHub-Action-for-pytest@master
+#        with:
+#          args: python setup.py develop && pip install regex --user && pytest
         
