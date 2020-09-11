@@ -16,9 +16,6 @@ setuptools.setup(
     install_requires=[
         'pytest',
         'regex',
-        'numpy',
-        'scipy',
-        'matplotlib',
         'grapheme',
         'mpmath'
     ],
