@@ -15,6 +15,7 @@ setuptools.setup(
     ],
     install_requires=[
         'python3-dev',
+        'python-devel',
         'pytest',
         'regex',
         'grapheme',
