@@ -19,7 +19,7 @@ def filter(text):
 
 
 data = set()
-with open('test_corpus.txt', 'r', encoding='utf-8') as input_file, open('gold_standard.txt', 'w', encoding='utf-8') as output_file:
+with open('../data/test_corpus.txt', 'r', encoding='utf-8') as input_file, open('../data/gold_standard.txt', 'w', encoding='utf-8') as output_file:
     sent = input_file.read()
     for each in sent.split():
         each = filter(each)

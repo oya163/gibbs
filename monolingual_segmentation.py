@@ -13,7 +13,7 @@ import grapheme
 import pickle
 import math
 import argparse
-import utilities as utilities
+from utils import utilities as utilities
 from mpmath import gamma
 import sys
 import csv
@@ -350,7 +350,7 @@ class MixtureModel:
         hit = 0
         insert = 0
         delete = 0
-        with open(gold_file, 'r') as f, open('result_file.txt', 'w') as g:
+        with open(gold_file, 'r') as f, open('logs/result_file.txt', 'w') as g:
             reader = csv.reader(f, delimiter='\t')
             for word, morphemes in reader:
                 # Do this process for each word
