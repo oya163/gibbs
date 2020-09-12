@@ -1,4 +1,4 @@
-from monolingual_segmentation import split_over_length
+from segment import split_over_length
 import pytest
 
 
