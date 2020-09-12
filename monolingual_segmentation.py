@@ -41,19 +41,24 @@ def parse_args():
     parser.add_argument("-p", "--prob_c", dest="prob_c", type=float,
                         default=0.5, metavar="FLOAT", help="Probability of joining new cluster")
     parser.add_argument("-m", "--method", dest="method", type=str, default='collapsed',
-                        choices=['mle', 'nig', 'collapsed'], metavar="STR", help="Method Selection [default:collapsed]")
-    parser.add_argument("--input_filename", dest="input_filename", type=str, default='train.txt',
-                        metavar="PATH", help="Input Filename [default:national_very_small.txt]")
-    parser.add_argument("-f", "--model_filename", dest="model_filename", type=str, default='segmentation_model.pkl',
-                        metavar="STR", help="File name [default:segmentation_model.pkl]")
-    parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='segmentation.log',
+                        choices=['mle', 'nig', 'collapsed'], metavar="STR",
+                        help="Method Selection [default:collapsed]")
+    parser.add_argument("--input_filename", dest="input_filename", type=str, default='./data/train.txt',
+                        metavar="PATH", help="Input Filename [default:train.txt]")
+    parser.add_argument("-f", "--model_filename", dest="model_filename", type=str,
+                        default='./models/segmentation_model.pkl', metavar="STR",
+                        help="File name [default:segmentation_model.pkl]")
+    parser.add_argument("-l", "--log_filename", dest="log_filename", type=str, default='./logs/segmentation.log',
                         metavar="PATH", help="File name [default:segmentation.log]")
     parser.add_argument('-t', "--inference", default=False, action="store_true", help="For inference purpose only")
     parser.add_argument('-w', "--word", default="नेपालको", metavar="STR", help="Input inference word")
     parser.add_argument('-e', "--evaluation", default=False, action="store_true", help="For evaluation purpose only")
     parser.add_argument("-g", "--gold_file", dest="gold_file", type=str,
-                        default='gold_standard.txt', required='--evaluate' in sys.argv,
-                        metavar="PATH", help="File name [default:gold_standard.txt]")
+                        default='./data/gold_standard.txt', required='--evaluate' in sys.argv,
+                        metavar="PATH", help="Gold standard file name [default:gold_standard.txt]")
+    parser.add_argument("-r", "--result_filename", dest="result_filename", type=str,
+                        default='./logs/result_file.txt',
+                        metavar="PATH", help="Result file name [default:result_file.txt]")
     args = parser.parse_args()
     return args
 
@@ -112,7 +117,7 @@ def remove_current_data(index, input_data, orig_data):
 
 class MixtureModel:
     def __init__(self, K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename,
-                 logger):
+                 logger, result_filename):
         # Number of cluster
         self.K = K
         self.A = A
@@ -125,6 +130,7 @@ class MixtureModel:
         self.model_filename = model_filename
         self.input_filename = input_filename
         self.logger = logger
+        self.result_filename = result_filename
 
         self.logger.info("\n======================HYPERPARAMETERS=============================\n")
         self.logger.info("Initial cluster size : {}".format(self.K))
@@ -137,6 +143,7 @@ class MixtureModel:
         self.logger.info("Probability of joining new cluster : {}".format(self.prob_c))
         self.logger.info("Model filename : {}".format(self.model_filename))
         self.logger.info("Training filename : {}".format(self.input_filename))
+        self.logger.info("Result filename : {}".format(self.result_filename))
 
     # Read file
     def read_corpus(self):
@@ -350,7 +357,7 @@ class MixtureModel:
         hit = 0
         insert = 0
         delete = 0
-        with open(gold_file, 'r') as f, open('logs/result_file.txt', 'w') as g:
+        with open(gold_file, 'r') as f, open(self.result_filename, 'w') as g:
             reader = csv.reader(f, delimiter='\t')
             for word, morphemes in reader:
                 # Do this process for each word
@@ -400,18 +407,19 @@ def main():
     prob_c = args.prob_c
     inference = args.inference
     evaluation = args.evaluation
-    gold_file = args.gold_file
     word = args.word
     method = args.method
+    gold_file = args.gold_file
     model_filename = args.model_filename
     input_filename = args.input_filename
     log_filename = args.log_filename
+    result_filename = args.result_filename
 
     logger = utilities.get_logger(log_filename)
 
     # define model
     model = MixtureModel(K, A, N, alpha_0, beta_0, prob_c, total_iteration, method, model_filename, input_filename,
-                         logger)
+                         logger, result_filename)
 
     if not inference and not evaluation:
         logger.info("\n======================TRAINING=============================\n")
