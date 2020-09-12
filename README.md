@@ -1,6 +1,6 @@
-![gibbs_ci](https://github.com/oya163/gibbs/workflows/gibbs_ci/badge.svg)
 
-# Gibbs Sampling
+
+# Gibbs Sampling ![gibbs_ci](https://github.com/oya163/gibbs/workflows/gibbs_ci/badge.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 These are the outcomes of my learning during my internship in [NAAMII](https://www.naamii.com.np/).
 I wrote couple of scripts for finite and infinite mixture models based on Chinese Restaurant Process.
