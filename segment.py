@@ -471,5 +471,5 @@ def main():
         logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
-# if __name__ == "__main__":
-main()
+if __name__ == "__main__":
+    main()
