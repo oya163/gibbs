@@ -5,3 +5,4 @@ grapheme
 mpmath
 regex
 pytest
+flask
