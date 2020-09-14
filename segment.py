@@ -399,16 +399,16 @@ def main():
 
     # Get arguments
     K = args.cluster
+    A = args.alpha
     N = args.data_points
     total_iteration = args.iteration
-    A = args.alpha
     alpha_0 = args.alpha_0
     beta_0 = args.beta_0
     prob_c = args.prob_c
+    method = args.method
     inference = args.inference
     evaluation = args.evaluation
     word = args.word
-    method = args.method
     gold_file = args.gold_file
     model_filename = args.model_filename
     input_filename = args.input_filename
@@ -471,5 +471,5 @@ def main():
         logger.info("Best split {} {}\n".format(best_split, best_prob))
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+main()
