@@ -21,12 +21,20 @@
       <form role="form" method='POST' action='/post'>
         <div class="form-group">
          <textarea rows = "5" cols = "60" type="text" name="input" class="form-control" \
-                   id="url-box" placeholder="शब्दहरु दिनुहोस (Enter a sentence in Nepali language):" \
+                   id="url-box" placeholder="शब्द दिनुहोस (Enter an unsplitted word in Nepali language):" \
                    autofocus required></textarea>
         </div>
         <button type="submit" class="btn btn-default">बुझाउ (Submit)</button>
       </form>
       <br>
+        <div class="example">
+          <h2>Examples</h2>
+          <ul>
+            <li>अमेरिकाद्वारा (By America)</li>
+            <li>रामलाई (For Ram)</li>
+          </ul>
+          <br>
+        </div>
       {% for error in errors %}
         <h4>{{ error }}</h4>
       {% endfor %}
@@ -42,6 +50,7 @@
         <footer>
           <p>Developed by: Oyashi</p>
           <p>Github: <a href="https://github.com/oya163/gibbs">https://github.com/oya163/gibbs</a></p>
+          <p>Note: The results are not perfect yet. Need to work on training with larger dataset</p>
         </footer>
     </div>
     <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
