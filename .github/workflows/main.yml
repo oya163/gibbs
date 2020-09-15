@@ -1,6 +1,8 @@
-# This is a basic workflow to help you get started with Actions
+# Basic CI/CD pipeline with Github Actions
+# Date: 09/15/2020
+# Author: Oyesh Mann Singh
 
-name: gibbs_ci
+name: gibbs_cicd
 env:
   EB_PACKAGE_S3_BUCKETNAME : "oyashi-flask-app"
   EB_APPLICATION_NAME      : "gibbs-app"
@@ -18,7 +20,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # Integration job
   ci_pipeline:
     name: Github action for CI pipeline
     # The type of runner that the job will run on
@@ -62,7 +64,7 @@ jobs:
       - name: Print message after completion
         run: echo "CI pipeline part finished successfully"
 
-  # This workflow contains a single job called "build"
+  # Deployment job
   cd_pipeline:
     name: Github action for CD pipeline
     # The type of runner that the job will run on
