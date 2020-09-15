@@ -1,0 +1,777 @@
+
+=========================================================================
+2020-09-11 22:04:38
+=========================================================================
+2020-09-11 22:04:38,732:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-11 22:04:38,732:INFO:Initial cluster size : 3
+2020-09-11 22:04:38,732:INFO:CRP alpha : 0.9
+2020-09-11 22:04:38,732:INFO:Number of words : 5000
+2020-09-11 22:04:38,732:INFO:Number of iteration : 5
+2020-09-11 22:04:38,732:INFO:Selected method : collapsed
+2020-09-11 22:04:38,733:INFO:Beta Geometric alpha : 1.0
+2020-09-11 22:04:38,733:INFO:Beta Geometric beta : 2.0
+2020-09-11 22:04:38,733:INFO:Probability of joining new cluster : 0.5
+2020-09-11 22:04:38,733:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-11 22:04:38,733:INFO:Training filename : ./data/train.txt
+2020-09-11 22:04:38,733:INFO:Result filename : ./logs/result_file.txt
+2020-09-11 22:04:38,770:INFO:
+======================INFERENCE=============================
+
+2020-09-11 22:04:38,796:INFO:All probable splits
+2020-09-11 22:04:38,796:INFO:('ने', 'पालको') 0.11366535265159142
+2020-09-11 22:04:38,796:INFO:('नेपा', 'लको') 0.11491879518914615
+2020-09-11 22:04:38,797:INFO:('नेपाल', 'को') 0.11625182137987898
+2020-09-11 22:04:38,797:INFO:('नेपालको', '') 2.458332688954208e-05
+2020-09-11 22:04:38,797:INFO:Best split ('नेपाल', 'को') 0.11625182137987898
+
+
+=========================================================================
+2020-09-11 23:01:36
+=========================================================================
+2020-09-11 23:01:36,085:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-11 23:01:36,085:INFO:Initial cluster size : 3
+2020-09-11 23:01:36,085:INFO:CRP alpha : 0.9
+2020-09-11 23:01:36,085:INFO:Number of words : 5000
+2020-09-11 23:01:36,085:INFO:Number of iteration : 5
+2020-09-11 23:01:36,085:INFO:Selected method : collapsed
+2020-09-11 23:01:36,085:INFO:Beta Geometric alpha : 1.0
+2020-09-11 23:01:36,085:INFO:Beta Geometric beta : 2.0
+2020-09-11 23:01:36,085:INFO:Probability of joining new cluster : 0.5
+2020-09-11 23:01:36,085:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-11 23:01:36,086:INFO:Training filename : ./data/train.txt
+2020-09-11 23:01:36,086:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-11 23:01:54
+=========================================================================
+2020-09-11 23:01:54,694:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-11 23:01:54,695:INFO:Initial cluster size : 3
+2020-09-11 23:01:54,695:INFO:CRP alpha : 0.9
+2020-09-11 23:01:54,695:INFO:Number of words : 5000
+2020-09-11 23:01:54,695:INFO:Number of iteration : 5
+2020-09-11 23:01:54,695:INFO:Selected method : collapsed
+2020-09-11 23:01:54,695:INFO:Beta Geometric alpha : 1.0
+2020-09-11 23:01:54,695:INFO:Beta Geometric beta : 2.0
+2020-09-11 23:01:54,695:INFO:Probability of joining new cluster : 0.5
+2020-09-11 23:01:54,695:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-11 23:01:54,695:INFO:Training filename : ./data/train.txt
+2020-09-11 23:01:54,695:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-12 14:43:11
+=========================================================================
+2020-09-12 14:43:11,962:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:43:11,963:INFO:Initial cluster size : 3
+2020-09-12 14:43:11,964:INFO:CRP alpha : 0.9
+2020-09-12 14:43:11,964:INFO:Number of words : 5000
+2020-09-12 14:43:11,964:INFO:Number of iteration : 5
+2020-09-12 14:43:11,964:INFO:Selected method : collapsed
+2020-09-12 14:43:11,964:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:43:11,964:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:43:11,964:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:43:11,964:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:43:11,964:INFO:Training filename : ./data/train.txt
+2020-09-12 14:43:11,964:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-12 14:48:17
+=========================================================================
+2020-09-12 14:48:17,604:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:48:17,604:INFO:Initial cluster size : 3
+2020-09-12 14:48:17,604:INFO:CRP alpha : 0.9
+2020-09-12 14:48:17,604:INFO:Number of words : 5000
+2020-09-12 14:48:17,604:INFO:Number of iteration : 5
+2020-09-12 14:48:17,604:INFO:Selected method : collapsed
+2020-09-12 14:48:17,604:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:48:17,604:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:48:17,604:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:48:17,604:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:48:17,605:INFO:Training filename : ./data/train.txt
+2020-09-12 14:48:17,605:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:48:17,608:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:48:22,665:INFO:127.0.0.1 - - [12/Sep/2020 14:48:22] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 14:48:37,703:INFO:127.0.0.1 - - [12/Sep/2020 14:48:37] "[37mPOST /post HTTP/1.1[0m" 200 -
+2020-09-12 14:48:58,166:INFO:127.0.0.1 - - [12/Sep/2020 14:48:58] "[37mPOST /post HTTP/1.1[0m" 200 -
+2020-09-12 14:49:05,746:INFO:127.0.0.1 - - [12/Sep/2020 14:49:05] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 14:50:23
+=========================================================================
+2020-09-12 14:50:23,278:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:50:23,278:INFO:Initial cluster size : 3
+2020-09-12 14:50:23,278:INFO:CRP alpha : 0.9
+2020-09-12 14:50:23,278:INFO:Number of words : 5000
+2020-09-12 14:50:23,279:INFO:Number of iteration : 5
+2020-09-12 14:50:23,279:INFO:Selected method : collapsed
+2020-09-12 14:50:23,279:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:50:23,279:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:50:23,279:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:50:23,279:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:50:23,279:INFO:Training filename : ./data/train.txt
+2020-09-12 14:50:23,279:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:50:23,303:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:50:26,353:INFO:127.0.0.1 - - [12/Sep/2020 14:50:26] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 14:50:33,846:INFO:127.0.0.1 - - [12/Sep/2020 14:50:33] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 14:53:07
+=========================================================================
+2020-09-12 14:53:07,704:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:53:07,704:INFO:Initial cluster size : 3
+2020-09-12 14:53:07,705:INFO:CRP alpha : 0.9
+2020-09-12 14:53:07,705:INFO:Number of words : 5000
+2020-09-12 14:53:07,705:INFO:Number of iteration : 5
+2020-09-12 14:53:07,705:INFO:Selected method : collapsed
+2020-09-12 14:53:07,705:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:53:07,705:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:53:07,705:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:53:07,705:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:53:07,705:INFO:Training filename : ./data/train.txt
+2020-09-12 14:53:07,705:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:53:07,729:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:53:09,939:INFO:127.0.0.1 - - [12/Sep/2020 14:53:09] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 14:53:24,185:INFO:127.0.0.1 - - [12/Sep/2020 14:53:24] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 14:56:40
+=========================================================================
+2020-09-12 14:56:40,965:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:56:40,965:INFO:Initial cluster size : 3
+2020-09-12 14:56:40,965:INFO:CRP alpha : 0.9
+2020-09-12 14:56:40,965:INFO:Number of words : 5000
+2020-09-12 14:56:40,965:INFO:Number of iteration : 5
+2020-09-12 14:56:40,965:INFO:Selected method : collapsed
+2020-09-12 14:56:40,965:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:56:40,965:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:56:40,965:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:56:40,966:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:56:40,966:INFO:Training filename : ./data/train.txt
+2020-09-12 14:56:40,966:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:56:40,990:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:56:43,236:ERROR:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 82, in hello
+    return render_template('index.html')
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/oyashi/PycharmProjects/gibbs/templates/index.html", line 33, in template
+    <p id="results1">{{ results[0]     results[1] }}</p>
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of print statement', got 'results'
+2020-09-12 14:56:43,242:INFO:127.0.0.1 - - [12/Sep/2020 14:56:43] "[35m[1mGET / HTTP/1.1[0m" 500 -
+
+=========================================================================
+2020-09-12 14:57:01
+=========================================================================
+2020-09-12 14:57:01,763:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:57:01,763:INFO:Initial cluster size : 3
+2020-09-12 14:57:01,763:INFO:CRP alpha : 0.9
+2020-09-12 14:57:01,763:INFO:Number of words : 5000
+2020-09-12 14:57:01,764:INFO:Number of iteration : 5
+2020-09-12 14:57:01,764:INFO:Selected method : collapsed
+2020-09-12 14:57:01,764:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:57:01,764:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:57:01,764:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:57:01,764:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:57:01,764:INFO:Training filename : ./data/train.txt
+2020-09-12 14:57:01,764:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:57:01,788:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:57:03,933:ERROR:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 82, in hello
+    return render_template('index.html')
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/oyashi/PycharmProjects/gibbs/templates/index.html", line 33, in template
+    <p id="results">{{ results[0]     results[1] }}</p>
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of print statement', got 'results'
+2020-09-12 14:57:03,937:INFO:127.0.0.1 - - [12/Sep/2020 14:57:03] "[35m[1mGET / HTTP/1.1[0m" 500 -
+
+=========================================================================
+2020-09-12 14:57:52
+=========================================================================
+2020-09-12 14:57:52,713:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:57:52,714:INFO:Initial cluster size : 3
+2020-09-12 14:57:52,714:INFO:CRP alpha : 0.9
+2020-09-12 14:57:52,714:INFO:Number of words : 5000
+2020-09-12 14:57:52,714:INFO:Number of iteration : 5
+2020-09-12 14:57:52,714:INFO:Selected method : collapsed
+2020-09-12 14:57:52,714:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:57:52,714:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:57:52,714:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:57:52,714:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:57:52,714:INFO:Training filename : ./data/train.txt
+2020-09-12 14:57:52,715:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:57:52,740:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:57:55,370:ERROR:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 82, in hello
+    return render_template('index.html')
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/oyashi/.local/lib/python3.7/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/oyashi/PycharmProjects/gibbs/templates/index.html", line 33, in template
+    <p id="results">{{ results[0]  &emsp; results[1] }}</p>
+jinja2.exceptions.TemplateSyntaxError: unexpected char '&' at 1146
+2020-09-12 14:57:55,374:INFO:127.0.0.1 - - [12/Sep/2020 14:57:55] "[35m[1mGET / HTTP/1.1[0m" 500 -
+
+=========================================================================
+2020-09-12 14:58:12
+=========================================================================
+2020-09-12 14:58:12,523:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:58:12,524:INFO:Initial cluster size : 3
+2020-09-12 14:58:12,524:INFO:CRP alpha : 0.9
+2020-09-12 14:58:12,524:INFO:Number of words : 5000
+2020-09-12 14:58:12,524:INFO:Number of iteration : 5
+2020-09-12 14:58:12,524:INFO:Selected method : collapsed
+2020-09-12 14:58:12,524:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:58:12,524:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:58:12,524:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:58:12,524:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:58:12,524:INFO:Training filename : ./data/train.txt
+2020-09-12 14:58:12,524:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:58:12,547:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:58:14,264:INFO:127.0.0.1 - - [12/Sep/2020 14:58:14] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 14:58:17,316:INFO:127.0.0.1 - - [12/Sep/2020 14:58:17] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 14:58:43
+=========================================================================
+2020-09-12 14:58:43,615:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 14:58:43,615:INFO:Initial cluster size : 3
+2020-09-12 14:58:43,615:INFO:CRP alpha : 0.9
+2020-09-12 14:58:43,615:INFO:Number of words : 5000
+2020-09-12 14:58:43,615:INFO:Number of iteration : 5
+2020-09-12 14:58:43,615:INFO:Selected method : collapsed
+2020-09-12 14:58:43,615:INFO:Beta Geometric alpha : 1.0
+2020-09-12 14:58:43,615:INFO:Beta Geometric beta : 2.0
+2020-09-12 14:58:43,615:INFO:Probability of joining new cluster : 0.5
+2020-09-12 14:58:43,615:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 14:58:43,615:INFO:Training filename : ./data/train.txt
+2020-09-12 14:58:43,616:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 14:58:43,640:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 14:58:45,351:INFO:127.0.0.1 - - [12/Sep/2020 14:58:45] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 14:58:47,994:INFO:127.0.0.1 - - [12/Sep/2020 14:58:47] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 17:49:23
+=========================================================================
+2020-09-12 17:49:23,415:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 17:49:23,415:INFO:Initial cluster size : 3
+2020-09-12 17:49:23,415:INFO:CRP alpha : 0.9
+2020-09-12 17:49:23,415:INFO:Number of words : 5000
+2020-09-12 17:49:23,415:INFO:Number of iteration : 5
+2020-09-12 17:49:23,415:INFO:Selected method : collapsed
+2020-09-12 17:49:23,415:INFO:Beta Geometric alpha : 1.0
+2020-09-12 17:49:23,415:INFO:Beta Geometric beta : 2.0
+2020-09-12 17:49:23,415:INFO:Probability of joining new cluster : 0.5
+2020-09-12 17:49:23,415:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 17:49:23,416:INFO:Training filename : ./data/train.txt
+2020-09-12 17:49:23,416:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 17:49:23,442:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 17:49:24,574:INFO:127.0.0.1 - - [12/Sep/2020 17:49:24] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 17:49:28,111:INFO:127.0.0.1 - - [12/Sep/2020 17:49:28] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 17:51:02
+=========================================================================
+2020-09-12 17:51:02,774:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 17:51:02,774:INFO:Initial cluster size : 3
+2020-09-12 17:51:02,774:INFO:CRP alpha : 0.9
+2020-09-12 17:51:02,774:INFO:Number of words : 5000
+2020-09-12 17:51:02,774:INFO:Number of iteration : 5
+2020-09-12 17:51:02,774:INFO:Selected method : collapsed
+2020-09-12 17:51:02,774:INFO:Beta Geometric alpha : 1.0
+2020-09-12 17:51:02,774:INFO:Beta Geometric beta : 2.0
+2020-09-12 17:51:02,774:INFO:Probability of joining new cluster : 0.5
+2020-09-12 17:51:02,775:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 17:51:02,775:INFO:Training filename : ./data/train.txt
+2020-09-12 17:51:02,775:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 17:51:02,802:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 17:51:04,308:INFO:127.0.0.1 - - [12/Sep/2020 17:51:04] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 17:51:07,162:INFO:127.0.0.1 - - [12/Sep/2020 17:51:07] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 18:37:31
+=========================================================================
+2020-09-12 18:37:31,692:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:37:31,692:INFO:Initial cluster size : 3
+2020-09-12 18:37:31,692:INFO:CRP alpha : 0.9
+2020-09-12 18:37:31,693:INFO:Number of words : 5000
+2020-09-12 18:37:31,693:INFO:Number of iteration : 5
+2020-09-12 18:37:31,693:INFO:Selected method : collapsed
+2020-09-12 18:37:31,693:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:37:31,693:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:37:31,693:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:37:31,693:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:37:31,693:INFO:Training filename : ./data/train.txt
+2020-09-12 18:37:31,693:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 18:37:31,719:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 18:37:32,954:INFO:127.0.0.1 - - [12/Sep/2020 18:37:32] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 18:37:33,303:INFO:127.0.0.1 - - [12/Sep/2020 18:37:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2020-09-12 18:37:36,448:INFO:127.0.0.1 - - [12/Sep/2020 18:37:36] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 18:40:23
+=========================================================================
+2020-09-12 18:40:23,339:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:40:23,340:INFO:Initial cluster size : 3
+2020-09-12 18:40:23,340:INFO:CRP alpha : 0.9
+2020-09-12 18:40:23,340:INFO:Number of words : 5000
+2020-09-12 18:40:23,340:INFO:Number of iteration : 5
+2020-09-12 18:40:23,340:INFO:Selected method : collapsed
+2020-09-12 18:40:23,340:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:40:23,340:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:40:23,340:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:40:23,340:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:40:23,340:INFO:Training filename : ./data/train.txt
+2020-09-12 18:40:23,340:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 18:40:23,364:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 18:40:26,012:INFO:127.0.0.1 - - [12/Sep/2020 18:40:26] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 18:40:28,761:ERROR:Exception on /post [POST]
+Traceback (most recent call last):
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 89, in post
+    results = inference(model, st_cluster, sf_cluster, stem_list, suffix_list, given_word)
+  File "app.py", line 62, in inference
+    stem_cluster = MixtureModel.clusterize(st_cluster, stem_list)
+TypeError: clusterize() missing 1 required positional argument: 'morpheme_list'
+2020-09-12 18:40:28,764:INFO:127.0.0.1 - - [12/Sep/2020 18:40:28] "[35m[1mPOST /post HTTP/1.1[0m" 500 -
+
+=========================================================================
+2020-09-12 18:41:02
+=========================================================================
+2020-09-12 18:41:02,193:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:41:02,194:INFO:Initial cluster size : 3
+2020-09-12 18:41:02,194:INFO:CRP alpha : 0.9
+2020-09-12 18:41:02,194:INFO:Number of words : 5000
+2020-09-12 18:41:02,194:INFO:Number of iteration : 5
+2020-09-12 18:41:02,194:INFO:Selected method : collapsed
+2020-09-12 18:41:02,194:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:41:02,194:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:41:02,194:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:41:02,194:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:41:02,194:INFO:Training filename : ./data/train.txt
+2020-09-12 18:41:02,194:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 18:41:02,219:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 18:41:03,655:INFO:127.0.0.1 - - [12/Sep/2020 18:41:03] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 18:41:06,460:ERROR:Exception on /post [POST]
+Traceback (most recent call last):
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/oyashi/.local/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app.py", line 89, in post
+    results = inference(model, st_cluster, sf_cluster, stem_list, suffix_list, given_word)
+  File "app.py", line 62, in inference
+    stem_cluster = model.clusterize(st_cluster, stem_list)
+TypeError: clusterize() missing 1 required positional argument: 'morpheme_list'
+2020-09-12 18:41:06,462:INFO:127.0.0.1 - - [12/Sep/2020 18:41:06] "[35m[1mPOST /post HTTP/1.1[0m" 500 -
+
+=========================================================================
+2020-09-12 18:42:12
+=========================================================================
+
+=========================================================================
+2020-09-12 18:48:25
+=========================================================================
+2020-09-12 18:48:25,020:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:48:25,020:INFO:Initial cluster size : 3
+2020-09-12 18:48:25,020:INFO:CRP alpha : 0.9
+2020-09-12 18:48:25,020:INFO:Number of words : 5000
+2020-09-12 18:48:25,020:INFO:Number of iteration : 5
+2020-09-12 18:48:25,020:INFO:Selected method : collapsed
+2020-09-12 18:48:25,020:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:48:25,020:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:48:25,020:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:48:25,020:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:48:25,020:INFO:Training filename : ./data/train.txt
+2020-09-12 18:48:25,020:INFO:Result filename : ./logs/result_file.txt
+2020-09-12 18:48:25,043:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-12 18:48:30,037:INFO:127.0.0.1 - - [12/Sep/2020 18:48:30] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 18:48:31,509:INFO:127.0.0.1 - - [12/Sep/2020 18:48:31] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-12 18:48:31,919:INFO:127.0.0.1 - - [12/Sep/2020 18:48:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2020-09-12 18:48:33,581:INFO:127.0.0.1 - - [12/Sep/2020 18:48:33] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-12 18:54:39
+=========================================================================
+2020-09-12 18:54:39,387:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:54:39,387:INFO:Initial cluster size : 3
+2020-09-12 18:54:39,387:INFO:CRP alpha : 0.9
+2020-09-12 18:54:39,387:INFO:Number of words : 5000
+2020-09-12 18:54:39,388:INFO:Number of iteration : 5
+2020-09-12 18:54:39,388:INFO:Selected method : collapsed
+2020-09-12 18:54:39,388:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:54:39,388:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:54:39,388:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:54:39,388:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:54:39,388:INFO:Training filename : ./data/train.txt
+2020-09-12 18:54:39,388:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-12 18:55:59
+=========================================================================
+2020-09-12 18:55:59,562:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:55:59,562:INFO:Initial cluster size : 3
+2020-09-12 18:55:59,562:INFO:CRP alpha : 0.9
+2020-09-12 18:55:59,562:INFO:Number of words : 5000
+2020-09-12 18:55:59,562:INFO:Number of iteration : 5
+2020-09-12 18:55:59,562:INFO:Selected method : collapsed
+2020-09-12 18:55:59,562:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:55:59,562:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:55:59,563:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:55:59,563:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:55:59,563:INFO:Training filename : ./data/train.txt
+2020-09-12 18:55:59,563:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-12 18:56:42
+=========================================================================
+2020-09-12 18:56:42,763:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:56:42,763:INFO:Initial cluster size : 3
+2020-09-12 18:56:42,763:INFO:CRP alpha : 0.9
+2020-09-12 18:56:42,763:INFO:Number of words : 5000
+2020-09-12 18:56:42,763:INFO:Number of iteration : 5
+2020-09-12 18:56:42,763:INFO:Selected method : collapsed
+2020-09-12 18:56:42,763:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:56:42,763:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:56:42,763:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:56:42,763:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:56:42,763:INFO:Training filename : ./data/train.txt
+2020-09-12 18:56:42,763:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-12 18:56:50
+=========================================================================
+2020-09-12 18:56:50,487:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-12 18:56:50,487:INFO:Initial cluster size : 3
+2020-09-12 18:56:50,487:INFO:CRP alpha : 0.9
+2020-09-12 18:56:50,487:INFO:Number of words : 5000
+2020-09-12 18:56:50,487:INFO:Number of iteration : 5
+2020-09-12 18:56:50,487:INFO:Selected method : collapsed
+2020-09-12 18:56:50,487:INFO:Beta Geometric alpha : 1.0
+2020-09-12 18:56:50,487:INFO:Beta Geometric beta : 2.0
+2020-09-12 18:56:50,487:INFO:Probability of joining new cluster : 0.5
+2020-09-12 18:56:50,487:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-12 18:56:50,487:INFO:Training filename : ./data/train.txt
+2020-09-12 18:56:50,487:INFO:Result filename : ./logs/result_file.txt
+
+=========================================================================
+2020-09-13 20:38:45
+=========================================================================
+2020-09-13 20:38:45,332:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 20:38:45,332:INFO:Initial cluster size : 3
+2020-09-13 20:38:45,332:INFO:CRP alpha : 0.9
+2020-09-13 20:38:45,332:INFO:Number of words : 5000
+2020-09-13 20:38:45,332:INFO:Number of iteration : 5
+2020-09-13 20:38:45,333:INFO:Selected method : collapsed
+2020-09-13 20:38:45,333:INFO:Beta Geometric alpha : 1.0
+2020-09-13 20:38:45,333:INFO:Beta Geometric beta : 2.0
+2020-09-13 20:38:45,333:INFO:Probability of joining new cluster : 0.5
+2020-09-13 20:38:45,333:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 20:38:45,333:INFO:Training filename : ./data/train.txt
+2020-09-13 20:38:45,333:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 20:38:45,361:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-13 20:38:48,499:INFO:127.0.0.1 - - [13/Sep/2020 20:38:48] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-13 20:38:51,280:INFO:127.0.0.1 - - [13/Sep/2020 20:38:51] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-13 20:41:14
+=========================================================================
+2020-09-13 20:41:14,310:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 20:41:14,310:INFO:Initial cluster size : 3
+2020-09-13 20:41:14,310:INFO:CRP alpha : 0.9
+2020-09-13 20:41:14,310:INFO:Number of words : 5000
+2020-09-13 20:41:14,310:INFO:Number of iteration : 5
+2020-09-13 20:41:14,310:INFO:Selected method : collapsed
+2020-09-13 20:41:14,311:INFO:Beta Geometric alpha : 1.0
+2020-09-13 20:41:14,311:INFO:Beta Geometric beta : 2.0
+2020-09-13 20:41:14,311:INFO:Probability of joining new cluster : 0.5
+2020-09-13 20:41:14,311:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 20:41:14,311:INFO:Training filename : ./data/train.txt
+2020-09-13 20:41:14,311:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 20:41:14,372:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-13 20:41:18,209:INFO:127.0.0.1 - - [13/Sep/2020 20:41:18] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-13 20:41:21,178:INFO:127.0.0.1 - - [13/Sep/2020 20:41:21] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-13 20:42:32
+=========================================================================
+2020-09-13 20:42:32,982:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 20:42:32,982:INFO:Initial cluster size : 3
+2020-09-13 20:42:32,982:INFO:CRP alpha : 0.9
+2020-09-13 20:42:32,982:INFO:Number of words : 5000
+2020-09-13 20:42:32,982:INFO:Number of iteration : 5
+2020-09-13 20:42:32,982:INFO:Selected method : collapsed
+2020-09-13 20:42:32,982:INFO:Beta Geometric alpha : 1.0
+2020-09-13 20:42:32,983:INFO:Beta Geometric beta : 2.0
+2020-09-13 20:42:32,983:INFO:Probability of joining new cluster : 0.5
+2020-09-13 20:42:32,983:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 20:42:32,983:INFO:Training filename : ./data/train.txt
+2020-09-13 20:42:32,983:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 20:42:33,020:INFO:
+======================INFERENCE=============================
+
+2020-09-13 20:42:33,052:INFO:All probable splits
+2020-09-13 20:42:33,052:INFO:('ने', 'पालको') 0.11366535265159142
+2020-09-13 20:42:33,053:INFO:('नेपा', 'लको') 0.11491879518914615
+2020-09-13 20:42:33,053:INFO:('नेपाल', 'को') 0.11625182137987898
+2020-09-13 20:42:33,053:INFO:('नेपालको', '') 2.458332688954208e-05
+2020-09-13 20:42:33,053:INFO:Best split ('नेपाल', 'को') 0.11625182137987898
+
+
+=========================================================================
+2020-09-13 23:31:51
+=========================================================================
+2020-09-13 23:31:51,725:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 23:31:51,726:INFO:Initial cluster size : 3
+2020-09-13 23:31:51,726:INFO:CRP alpha : 0.9
+2020-09-13 23:31:51,726:INFO:Number of words : 5000
+2020-09-13 23:31:51,726:INFO:Number of iteration : 5
+2020-09-13 23:31:51,726:INFO:Selected method : collapsed
+2020-09-13 23:31:51,726:INFO:Beta Geometric alpha : 1.0
+2020-09-13 23:31:51,726:INFO:Beta Geometric beta : 2.0
+2020-09-13 23:31:51,726:INFO:Probability of joining new cluster : 0.5
+2020-09-13 23:31:51,726:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 23:31:51,726:INFO:Training filename : ./data/train.txt
+2020-09-13 23:31:51,726:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 23:31:51,726:INFO:
+======================TRAINING=============================
+
+2020-09-13 23:31:53,656:INFO:Corpus length : 5000
+2020-09-13 23:31:55,057:INFO:Length of stem: 13662 and suffix: 9294
+2020-09-13 23:31:55,201:INFO:Training iteration: 0
+
+=========================================================================
+2020-09-13 23:33:46
+=========================================================================
+2020-09-13 23:33:46,515:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 23:33:46,515:INFO:Initial cluster size : 3
+2020-09-13 23:33:46,515:INFO:CRP alpha : 0.9
+2020-09-13 23:33:46,515:INFO:Number of words : 5000
+2020-09-13 23:33:46,515:INFO:Number of iteration : 5
+2020-09-13 23:33:46,515:INFO:Selected method : collapsed
+2020-09-13 23:33:46,516:INFO:Beta Geometric alpha : 1.0
+2020-09-13 23:33:46,516:INFO:Beta Geometric beta : 2.0
+2020-09-13 23:33:46,516:INFO:Probability of joining new cluster : 0.5
+2020-09-13 23:33:46,516:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 23:33:46,516:INFO:Training filename : ./data/train.txt
+2020-09-13 23:33:46,516:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 23:33:46,516:INFO:
+======================TRAINING=============================
+
+2020-09-13 23:33:48,292:INFO:Corpus length : 5000
+2020-09-13 23:33:49,692:INFO:Length of stem: 13662 and suffix: 9294
+
+=========================================================================
+2020-09-13 23:34:36
+=========================================================================
+2020-09-13 23:34:36,469:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 23:34:36,469:INFO:Initial cluster size : 3
+2020-09-13 23:34:36,469:INFO:CRP alpha : 0.9
+2020-09-13 23:34:36,469:INFO:Number of words : 5000
+2020-09-13 23:34:36,469:INFO:Number of iteration : 5
+2020-09-13 23:34:36,469:INFO:Selected method : collapsed
+2020-09-13 23:34:36,469:INFO:Beta Geometric alpha : 1.0
+2020-09-13 23:34:36,469:INFO:Beta Geometric beta : 2.0
+2020-09-13 23:34:36,469:INFO:Probability of joining new cluster : 0.5
+2020-09-13 23:34:36,470:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 23:34:36,470:INFO:Training filename : ./data/train.txt
+2020-09-13 23:34:36,470:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 23:34:36,533:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-13 23:34:40,250:INFO:127.0.0.1 - - [13/Sep/2020 23:34:40] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-13 23:34:42,371:INFO:127.0.0.1 - - [13/Sep/2020 23:34:42] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-13 23:37:58
+=========================================================================
+2020-09-13 23:37:58,922:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-13 23:37:58,923:INFO:Initial cluster size : 3
+2020-09-13 23:37:58,923:INFO:CRP alpha : 0.9
+2020-09-13 23:37:58,923:INFO:Number of words : 5000
+2020-09-13 23:37:58,923:INFO:Number of iteration : 5
+2020-09-13 23:37:58,923:INFO:Selected method : collapsed
+2020-09-13 23:37:58,923:INFO:Beta Geometric alpha : 1.0
+2020-09-13 23:37:58,923:INFO:Beta Geometric beta : 2.0
+2020-09-13 23:37:58,923:INFO:Probability of joining new cluster : 0.5
+2020-09-13 23:37:58,923:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-13 23:37:58,923:INFO:Training filename : ./data/train.txt
+2020-09-13 23:37:58,923:INFO:Result filename : ./logs/result_file.txt
+2020-09-13 23:37:58,985:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-13 23:38:00,898:INFO:127.0.0.1 - - [13/Sep/2020 23:38:00] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-13 23:38:03,596:INFO:127.0.0.1 - - [13/Sep/2020 23:38:03] "[37mPOST /post HTTP/1.1[0m" 200 -
+
+=========================================================================
+2020-09-15 02:43:40
+=========================================================================
+2020-09-15 02:43:40,737:INFO:
+======================HYPERPARAMETERS=============================
+
+2020-09-15 02:43:40,737:INFO:Initial cluster size : 3
+2020-09-15 02:43:40,737:INFO:CRP alpha : 0.9
+2020-09-15 02:43:40,737:INFO:Number of words : 5000
+2020-09-15 02:43:40,737:INFO:Number of iteration : 5
+2020-09-15 02:43:40,737:INFO:Selected method : collapsed
+2020-09-15 02:43:40,737:INFO:Beta Geometric alpha : 1.0
+2020-09-15 02:43:40,737:INFO:Beta Geometric beta : 2.0
+2020-09-15 02:43:40,737:INFO:Probability of joining new cluster : 0.5
+2020-09-15 02:43:40,738:INFO:Model filename : ./models/segmentation_model.pkl
+2020-09-15 02:43:40,738:INFO:Training filename : ./data/train.txt
+2020-09-15 02:43:40,738:INFO:Result filename : ./logs/result_file.txt
+2020-09-15 02:43:40,761:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-15 02:43:43,200:INFO:127.0.0.1 - - [15/Sep/2020 02:43:43] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-15 02:43:43,388:INFO:127.0.0.1 - - [15/Sep/2020 02:43:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
