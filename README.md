@@ -24,4 +24,4 @@ and [snyder-barzilay-2008-unsupervised](https://www.aclweb.org/anthology/P08-108
 - [x] Deploy on AWS Elastic Beanstalk
 
 ## Deployment
-Please click [here]()
+Please click [here](http://nepsegment.us-west-2.elasticbeanstalk.com/)
