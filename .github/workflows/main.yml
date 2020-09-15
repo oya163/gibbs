@@ -3,10 +3,10 @@
 name: gibbs_ci
 env:
   EB_PACKAGE_S3_BUCKETNAME : "oyashi-flask-app"
-  EB_APPLICATION_NAME      : "Oyashiflask"
+  EB_APPLICATION_NAME      : "oyashiflask"
   EB_ENVIRONMENT_NAME      : "Oyashiflask-env"
   DEPLOY_PACKAGE_NAME      : "flask-app-${{ github.sha }}.zip"
-  AWS_REGION_NAME          : "us-east-2"
+  AWS_REGION_NAME          : "us-west-2"
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -75,8 +75,7 @@ jobs:
         with:
           aws-access-key-id     : ${{ secrets.MY_AWS_ACCESS_KEY }}
           aws-secret-access-key : ${{ secrets.MY_AWS_SECRET_KEY }}
-          aws-region            : "us-west-2"
-#          aws-region            : ${{ env.AWS_REGION_NAME }}
+          aws-region            : ${{ env.AWS_REGION_NAME }}
 
       - name: Create new ElasticBeanstalk Application Version
         run: |
