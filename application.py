@@ -16,7 +16,7 @@ import pickle
 import grapheme
 from utils import utilities as utilities
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 # args = segment.parse_args()
 
@@ -76,12 +76,12 @@ with open('./models/segmentation_model.pkl', 'rb') as f:
     st_cluster, sf_cluster, stem_list, suffix_list = pickle.load(f)
 
 
-@app.route('/')
+@application.route('/')
 def hello():
     return render_template('index.html')
 
 
-@app.route('/post', methods=['GET','POST'])
+@application.route('/post', methods=['GET', 'POST'])
 def post():
     errors = []
     given_word = request.form['input']
@@ -94,4 +94,4 @@ def post():
 
 
 if __name__ == "__main__":
-    app.run()
+    application.run()
