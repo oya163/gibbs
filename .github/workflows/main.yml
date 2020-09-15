@@ -3,8 +3,8 @@
 name: gibbs_ci
 env:
   EB_PACKAGE_S3_BUCKETNAME : "oyashi-flask-app"
-  EB_APPLICATION_NAME      : "oyashiflask"
-  EB_ENVIRONMENT_NAME      : "Oyashiflask-env"
+  EB_APPLICATION_NAME      : "gibbs-app"
+  EB_ENVIRONMENT_NAME      : "gibbsapp-env"
   DEPLOY_PACKAGE_NAME      : "flask-app-${{ github.sha }}.zip"
   AWS_REGION_NAME          : "us-west-2"
 
