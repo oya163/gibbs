@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Nepali Stemmer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+      .container {
+        max-width: 1000px;
+      }
+      .results_core {
+        font-size: 150%;
+        max-width: 1000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Nepali Stemmer based on Bayesian Model</h1>
+      <form role="form" method='POST' action='/post'>
+        <div class="form-group">
+         <textarea rows = "5" cols = "60" type="text" name="input" class="form-control" \
+                   id="url-box" placeholder="शब्दहरु दिनुहोस (Enter a sentence in Nepali language):" \
+                   autofocus required></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">बुझाउ (Submit)</button>
+      </form>
+      <br>
+      {% for error in errors %}
+        <h4>{{ error }}</h4>
+      {% endfor %}
+        <div class="results">
+          {% if results %}
+            <h2>Results</h2>
+            <br>
+            <div class="results_core">
+              <p id="results_1">{{ results[0] }} &emsp; {{ results[1] }}</p>
+            </div>
+          {% endif %}
+        </div>
+        <footer>
+          <p>Developed by: Oyashi</p>
+          <p>Github: <a href="https://github.com/oya163/gibbs">https://github.com/oya163/gibbs</a></p>
+        </footer>
+    </div>
+    <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+</html>
