@@ -19,8 +19,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    name: Github action for pytest
+  ci_pipeline:
+    name: Github action for CI pipeline
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -64,7 +64,7 @@ jobs:
 
   # This workflow contains a single job called "build"
   cd_pipeline:
-    name: cd_pipeline
+    name: Github action for CI pipeline
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
@@ -79,8 +79,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-application-version \
           --application-name ${{ env.EB_APPLICATION_NAME }} \
-          --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKETNAME }}", \
-            S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+          --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKETNAME }}", S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
           --version-label "Ver-${{ github.sha }}" \
           --description "CommitSHA-${{ github.sha }}"
 
