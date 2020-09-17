@@ -17,7 +17,7 @@ and [snyder-barzilay-2008-unsupervised](https://www.aclweb.org/anthology/P08-108
 
 
 ## Tasks
-- [x] Implement Beta Binomial conjugate prior for word segmentation
+- [x] Implement Beta Geometric conjugate prior for word segmentation
 - [x] Create Nepali segmentation dataset
 - [x] Create simple flask based web app
 - [x] Apply CI/CD pipeline
